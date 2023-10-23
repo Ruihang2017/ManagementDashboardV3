@@ -1,0 +1,152 @@
+[
+  {
+    "employeeID": "1",
+    "firstname": "John",
+    "lastname": "Smith",
+    "email": "john.smith@example.com",
+    "password": "password123",
+    "role": {
+      "roleID": "101",
+      "roleName": "Manager"
+    },
+    "thoughts": [
+      {
+        "thoughtID": "201",
+        "title": "New Menu Ideas",
+        "description": "Brainstorming new menu items for the restaurant.",
+        "comments": [
+          {
+            "commentID": "301",
+            "commentContent": "Great ideas! Let's discuss these in the next meeting.",
+            "postedTime": "2023-10-23 10:30 AM"
+          }
+        ],
+        "datePosted": "2023-10-22 10:30 AM"
+      }
+    ],
+    "tasks": [
+      {
+        "taskID": "301",
+        "taskName": "Menu Update",
+        "taskDescription": "Update the restaurant menu for the new season.",
+        "todos": [
+          {
+            "todoID": "401",
+            "name": "Create new menu items",
+            "description": "Design and create new menu items.",
+            "completed": false,
+            "completionTime": "2023-11-10 03:30 PM"
+          }
+        ],
+        "startingTime": "2023-10-22 08:00 AM",
+        "targetTime": "2023-11-15 05:00 PM",
+        "completed": false
+      }
+    ],
+    "todos": []
+  },
+  {
+    "employeeID": "2",
+    "firstname": "Sarah",
+    "lastname": "Johnson",
+    "email": "sarah.johnson@example.com",
+    "password": "securepass",
+    "role": {
+      "roleID": "102",
+      "roleName": "Staff"
+    },
+    "thoughts": [
+      {
+        "thoughtID": "202",
+        "title": "Customer Feedback",
+        "description": "Reviewing customer feedback and suggestions.",
+        "comments": [],
+        "datePosted": "2023-10-23 10:30 AM"
+      }
+    ],
+    "tasks": [],
+    "todos": [
+      {
+        "todoID": "402",
+        "name": "Prepare Specials",
+        "description": "Prepare daily specials for the restaurant.",
+        "completed": false,
+        "completionTime": "2023-10-25 09:30 AM"
+      }
+    ]
+  },
+  {
+    "employeeID": "3",
+    "firstname": "Emily",
+    "lastname": "Brown",
+    "email": "emily.brown@example.com",
+    "password": "pass123",
+    "role": {
+      "roleID": "102",
+      "roleName": "Staff"
+    },
+    "thoughts": [],
+    "tasks": [
+      {
+        "taskID": "303",
+        "taskName": "Customer Service Training",
+        "taskDescription": "Train staff for exceptional customer service.",
+        "todos": [
+          {
+            "todoID": "403",
+            "name": "Create Training Schedule",
+            "description": "Create a schedule for customer service training.",
+            "completed": true,
+            "completionTime": "2023-10-26 02:00 PM"
+          }
+        ],
+        "startingTime": "2023-10-24 09:30 AM",
+        "targetTime": "2023-10-24 11:00 AM",
+        "completed": false
+      }
+    ],
+    "todos": []
+  },
+  {
+    "employeeID": "4",
+    "firstname": "Michael",
+    "lastname": "Davis",
+    "email": "michael.davis@example.com",
+    "password": "michaelpass",
+    "role": {
+      "roleID": "102",
+      "roleName": "Staff"
+    },
+    "thoughts": [],
+    "tasks": [],
+    "todos": []
+  },
+  {
+    "employeeID": "5",
+    "firstname": "Olivia",
+    "lastname": "Martinez",
+    "email": "olivia.martinez@example.com",
+    "password": "oliviapass",
+    "role": {
+      "roleID": "102",
+      "roleName": "Staff"
+    },
+    "thoughts": [
+      {
+        "thoughtID": "205",
+        "title": "Customer Service",
+        "description": "Improving customer service and satisfaction.",
+        "comments": [
+          {
+            "commentID": "303",
+            "commentContent": "Let's create a customer service training plan.",
+            "postedTime": "2023-10-26 09:30 AM"
+          }
+        ],
+        "datePosted": "2023-10-26 10:30 AM"
+      }
+    ],
+    "tasks": [],
+    "todos": []
+  }
+]

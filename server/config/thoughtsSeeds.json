@@ -1,0 +1,55 @@
+[
+  {
+    "thoughtID": "201",
+    "title": "New Menu Ideas",
+    "description": "Brainstorming new menu items for the restaurant.",
+    "comments": [
+      {
+        "commentID": "301",
+        "commentContent": "Great ideas! Let's discuss these in the next meeting.",
+        "postedTime": "2023-10-23 10:30 AM"
+      }
+    ],
+    "datePosted": "2023-10-22 10:30 AM"
+  },
+  {
+    "thoughtID": "202",
+    "title": "Customer Feedback",
+    "description": "Reviewing customer feedback and suggestions.",
+    "comments": [],
+    "datePosted": "2023-10-23 10:30 AM"
+  },
+  {
+    "thoughtID": "203",
+    "title": "Busy Weekend",
+    "description": "Preparations for a busy weekend ahead.",
+    "comments": [
+      {
+        "commentID": "302",
+        "commentContent": "We'll need extra staff for the weekend rush.",
+        "postedTime": "2023-10-24 11:00 AM"
+      }
+    ],
+    "datePosted": "2023-10-24 10:30 AM"
+  },
+  {
+    "thoughtID": "204",
+    "title": "Team Meeting",
+    "description": "Planning the next team meeting agenda.",
+    "comments": [],
+    "datePosted": "2023-10-25 10:30 AM"
+  },
+  {
+    "thoughtID": "205",
+    "title": "Customer Service",
+    "description": "Improving customer service and satisfaction.",
+    "comments": [
+      {
+        "commentID": "303",
+        "commentContent": "Let's create a customer service training plan.",
+        "postedTime": "2023-10-26 09:30 AM"
+      }
+    ],
+    "datePosted": "2023-10-26 10:30 AM"
+  }
+]

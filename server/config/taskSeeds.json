@@ -1,0 +1,73 @@
+[
+  {
+    "taskID": "301",
+    "taskName": "Menu Update",
+    "taskDescription": "Update the restaurant menu for the new season.",
+    "todos": [
+      {
+        "todoID": "401",
+        "name": "Create new menu items",
+        "description": "Design and create new menu items.",
+        "completed": false,
+        "completionTime": "2023-11-10 03:30 PM"
+      }
+    ],
+    "startingTime": "2023-10-22 08:00 AM",
+    "targetTime": "2023-11-15 05:00 PM",
+    "completed": false
+  },
+  {
+    "taskID": "302",
+    "taskName": "Inventory Check",
+    "taskDescription": "Conduct inventory check for supplies and ingredients.",
+    "todos": [],
+    "startingTime": "2023-10-23 10:00 AM",
+    "targetTime": "2023-11-10 03:30 PM",
+    "completionTime": "2023-11-10 03:30 PM",
+    "completed": true
+  },
+  {
+    "taskID": "303",
+    "taskName": "Customer Service Training",
+    "taskDescription": "Train staff for exceptional customer service.",
+    "todos": [
+      {
+        "todoID": "402",
+        "name": "Create training materials",
+        "description": "Develop training materials for staff.",
+        "completed": true,
+        "completionTime": "2023-10-25 09:30 AM"
+      }
+    ],
+    "startingTime": "2023-10-24 09:30 AM",
+    "targetTime": "2023-10-24 11:00 AM",
+    "completed": false
+  },
+  {
+    "taskID": "304",
+    "taskName": "Weekend Specials",
+    "taskDescription": "Plan and prepare weekend special dishes.",
+    "todos": [],
+    "startingTime": "2023-10-25 10:00 AM",
+    "targetTime": "2023-11-20 05:00 PM",
+    "completed": false
+  },
+  {
+    "taskID": "305",
+    "taskName": "Cleaning and Sanitization",
+    "taskDescription": "Ensure the restaurant is clean and sanitized daily.",
+    "todos": [
+      {
+        "todoID": "403",
+        "name": "Sanitize kitchen equipment",
+        "description": "Regularly sanitize kitchen equipment.",
+        "completed": true,
+        "completionTime": "2023-10-26 02:00 PM"
+      }
+    ],
+    "startingTime": "2023-10-26 11:00 AM",
+    "targetTime": "2023-11-15 03:30 PM",
+    "completionTime": "2023-11-15 03:30 PM",
+    "completed": true
+  }
+]

@@ -1,48 +1,69 @@
 const typeDefs = `
-    type User {
+    type Task {
         _id: ID!
-        username: String!
-        email: String!
-        password: String!
-        savedBooks: [Book]
+        taskID: String
+        taskName: String!
+        taskDescription: String!
+        todos: [ToDo]
+        startingTime: String
+        targetTime: String
+        completionTime: String
+        completed:Boolean
     }
 
-    type Book {
+    type ToDo {
         _id: ID!
-        authors: [String]
+        todoID: String
+        name: String
         description: String
-        bookId: String
-        image: String
-        link: String
-        title: String
+        completed: Boolean
+        completionTime: String
+        employees: [Employee]
     }
 
-    input BookInput {
+    type Employee {
         _id: ID
-        authors: [String]
-        description: String
-        bookId: String
-        image: String
-        link: String
-        title: String
+        employeeID: String
+        firstname: String
+        lastname: String
+        dob: String
+        email: String
+        password: String
+        role: Role
+        thoughts: [Thought]
+        tasks: [Task]
+        todos: [ToDo]
     }
 
-    type Auth {
-        token: ID!
-        user: User
+    type Role {
+        _id: ID
+        roleID: String
+        roleName: String
+    }
+
+    type Thought {
+        _id: ID
+        thoughtID: String
+        title: String
+        description: String
+        comments: [Comment]
+        datePosted: String
+    }
+
+    type Comment {
+        _id: ID
+        commentID: String
+        commentContent: String
+        postedTime: String
     }
 
     type Query {
-        users: [User]
-        user(username: String!): User
-        me: User
-    }
-
-    type Mutation {
-        login(email: String!, password: String!): Auth
-        createUser(username: String!, email: String!, password: String!): Auth
-        saveBook(book: BookInput!): User
-        deleteBook(bookId: ID!): User
+        tasks: [Task]
+        employees: [Employee]
+        roles: [Role]
+        thoughts: [Thought]
+        task(taskID: String!): Task
+        employee(employeeID: String!): Employee
     }
 `
 
