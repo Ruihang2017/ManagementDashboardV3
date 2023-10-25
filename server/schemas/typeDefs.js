@@ -12,8 +12,29 @@ const typeDefs = `
         EmployeeIDs:[String]
     }
 
+    input TaskInput {
+        taskID: String
+        taskName: String!
+        taskDescription: String!
+        todos: [ToDoInput]
+        startingTime: String
+        targetTime: String
+        completionTime: String
+        completed:Boolean
+        EmployeeIDs:[String]
+    }
+
     type ToDo {
         _id: ID!
+        todoID: String
+        name: String
+        description: String
+        completed: Boolean
+        completionTime: String
+        EmployeeIDs:[String]
+    }
+
+    input ToDoInput {
         todoID: String
         name: String
         description: String
@@ -59,7 +80,6 @@ const typeDefs = `
     }
 
     input ThoughtInput {
-        _id: ID
         thoughtID: String
         title: String
         description: String
@@ -75,7 +95,6 @@ const typeDefs = `
     }
 
     input CommentInput {
-        _id: ID
         commentID: String
         commentContent: String
         EmployeeID:String
@@ -100,18 +119,15 @@ const typeDefs = `
 
         createComment(thoughtID: String!, comment:CommentInput! ): Thought
         deleteComment(thoughtID: String!, commentID: String!): Thought
+
+        createTask(task: TaskInput!): Task
+        updateTask(task: TaskInput!): Task
+        deleteTask(taskID: String!): Boolean
+
+        createToDo(taskID: String! , todo: ToDoInput!): Task
+        updateToDo(taskID: String! , todo: ToDoInput!): Task
+        deleteToDo(taskID: String!, todoID: String!): Task
     }
 `
-
-// createComment(thoughtID: String!, comment:CommentInput! ): Thought
-// deleteComment(commentID: String!): Thought
-
-// createTask(task: TaskInput!): Task
-// updateTask(task: TaskInput!): Task
-// deleteTask(taskID: String!): Boolean
-
-// createToDo(todo: ToDoInput!): Task
-// updateToDo(todo: ToDoInput!): Task
-// deleteToDo(todoID: String!): Task
 
 module.exports = typeDefs;

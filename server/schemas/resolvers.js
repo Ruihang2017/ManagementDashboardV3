@@ -149,6 +149,112 @@ const resolvers = {
                 throw error;
             }
         },
+        createTask: async (parent, { task }) => {
+            try {
+
+                const newTask = await Task.create({ ...task });
+
+                console.log(newTask);
+
+                return newTask;
+            } catch (error) {
+                throw error;
+            }
+        },
+        updateTask: async (parent, { task }) => {
+            try {
+                // const employeeID = employee.employeeID;
+                const updatedTask = await Task.findOneAndUpdate(
+                    { taskID: task.taskID },
+                    { $set: task },
+                    {
+                        new: true,
+                        runValidators: true,
+                    }
+                );
+                return updatedTask;
+
+            } catch (error) {
+                throw error;
+            }
+        },
+        deleteTask: async (parent, { taskID }) => {
+            try {
+                const result = await Task.deleteOne({ taskID: taskID });
+                if (result.deletedCount === 1) {
+                    return true;
+                }
+                return false;
+            } catch (error) {
+                throw error;
+            }
+        },
+        createToDo: async (parent, { taskID, todo }) => {
+            try {
+                const updatedTask = await Task.findOneAndUpdate(
+                    { taskID: taskID },
+                    { $addToSet: { todos: todo } },
+                    {
+                        new: true,
+                        runValidators: true,
+                    }
+                );
+
+                console.log(updatedTask);
+
+                return updatedTask;
+            } catch (error) {
+                throw error;
+            }
+        },
+        updateToDo: async (parent, { taskID, todo }) => {
+            try {
+                const currentTask = await Task.findOne({ taskID: taskID });
+                let newTask = currentTask;
+                newTask.todos = currentTask.todos.map((item) => {
+                    if (item.todoID === todo.todoID) {
+                        return todo;
+                    } else {
+                        return item;
+                    }
+                })
+                // console.log(newTask);
+
+                const updatedTask = await Task.findOneAndUpdate(
+                    { taskID: taskID },
+                    { $set: newTask },
+                    {
+                        new: true,
+                        runValidators: true,
+                    }
+                );
+
+                return updatedTask;
+            } catch (error) {
+                throw error;
+            }
+        },
+        deleteToDo: async (parent, { taskID, todoID }) => {
+            try {
+                const currentTask = await Task.findOne({ taskID: taskID });
+                const newTodo = currentTask.todos.filter((todo) => todo.todoID !== todoID);
+                let newTask = currentTask;
+                newTask.todos = newTodo;
+
+                const updatedTask = await Task.findOneAndUpdate(
+                    { taskID: taskID },
+                    { $set: newTask },
+                    {
+                        new: true,
+                        runValidators: true,
+                    }
+                );
+
+                return updatedTask;
+            } catch (error) {
+                throw error;
+            }
+        },
     }
 }
 

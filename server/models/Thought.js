@@ -7,6 +7,7 @@ const thoughtSchema = new Schema(
     thoughtID: {
       type: String,
       required: true,
+      unique: true,
     },
     title: {
       type: String,
