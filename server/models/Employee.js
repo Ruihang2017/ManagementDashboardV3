@@ -1,9 +1,10 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const Role = require('./Role');
-const Thought = require('./Thought');
-const Task = require('./Task');
-const todoSchema = require('./ToDo');
+// const Thought = require('./Thought');
+// const Task = require('./Task');
+// const ToDo = require('./ToDo');
+// const commentSchema = require('./Comment');
 
 // import schema from Book.js
 // const bookSchema = require('./Book');
@@ -33,10 +34,19 @@ const employeeSchema = new Schema(
       type: String,
       required: true,
     },
-    role: Role.schema,
-    thoughts: [Thought.schema],
-    tasks: [Task.schema],
-    todos: [todoSchema],
+    roleID: {
+      type: String,
+    },
+    // thoughtIDs: [{
+    //   type: String,
+    //   ref: 'Thought',
+    // }],
+    // taskIDs: [{
+    //   type: String,
+    //   ref: 'Task',
+    // }],
+    // todoIDs: [ToDo.schema],
+    // commentIDs: [Comment.schema],
 
     // set savedBooks to be an array of data that adheres to the bookSchema
   },

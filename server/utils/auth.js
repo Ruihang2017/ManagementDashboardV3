@@ -12,6 +12,12 @@ module.exports = {
     },
   }),
 
+  InputError: new GraphQLError('Input error', {
+    extensions: {
+      code: 'INPUT ERROR',
+    },
+  }),
+
   // function for our authenticated routes
   authMiddleware: function ({ req }) {
     // allows token to be sent via  req.query or headers

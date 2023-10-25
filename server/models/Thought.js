@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
-const todoSchema = require('./ToDo');
 const commentSchema = require('./Comment');
 
 const thoughtSchema = new Schema(
@@ -25,6 +24,10 @@ const thoughtSchema = new Schema(
       type: Date,
       default: Date.now,
       get: (timestamp) => dateFormat(timestamp),
+    },
+    EmployeeID: {
+      type: String,
+      ref: 'Employee',
     },
   },
   {

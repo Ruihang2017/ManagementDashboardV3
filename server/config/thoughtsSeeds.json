@@ -7,17 +7,20 @@
       {
         "commentID": "301",
         "commentContent": "Great ideas! Let's discuss these in the next meeting.",
-        "postedTime": "2023-10-23 10:30 AM"
+        "postedTime": "2023-10-23 10:30 AM",
+        "EmployeeID": "1"
       }
     ],
-    "datePosted": "2023-10-22 10:30 AM"
+    "datePosted": "2023-10-22 10:30 AM",
+    "EmployeeID": "1"
   },
   {
     "thoughtID": "202",
     "title": "Customer Feedback",
     "description": "Reviewing customer feedback and suggestions.",
     "comments": [],
-    "datePosted": "2023-10-23 10:30 AM"
+    "datePosted": "2023-10-23 10:30 AM",
+    "EmployeeID": "2"
   },
   {
     "thoughtID": "203",
@@ -27,17 +30,20 @@
       {
         "commentID": "302",
         "commentContent": "We'll need extra staff for the weekend rush.",
-        "postedTime": "2023-10-24 11:00 AM"
+        "postedTime": "2023-10-24 11:00 AM",
+        "EmployeeID": "3"
       }
     ],
-    "datePosted": "2023-10-24 10:30 AM"
+    "datePosted": "2023-10-24 10:30 AM",
+    "EmployeeID": "3"
   },
   {
     "thoughtID": "204",
     "title": "Team Meeting",
     "description": "Planning the next team meeting agenda.",
     "comments": [],
-    "datePosted": "2023-10-25 10:30 AM"
+    "datePosted": "2023-10-25 10:30 AM",
+    "EmployeeID": "4"
   },
   {
     "thoughtID": "205",
@@ -47,9 +53,17 @@
       {
         "commentID": "303",
         "commentContent": "Let's create a customer service training plan.",
-        "postedTime": "2023-10-26 09:30 AM"
+        "postedTime": "2023-10-26 09:30 AM",
+        "EmployeeID": "5"
+      },
+      {
+        "commentID": "302",
+        "commentContent": "We'll need extra staff for the weekend rush.",
+        "postedTime": "2023-10-24 11:00 AM",
+        "EmployeeID": "3"
       }
     ],
-    "datePosted": "2023-10-26 10:30 AM"
+    "datePosted": "2023-10-26 10:30 AM",
+    "EmployeeID": "5"
   }
 ]

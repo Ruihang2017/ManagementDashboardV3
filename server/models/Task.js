@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 const todoSchema = require('./ToDo');
-const Employee = require('./Employee');
+// const Employee = require('./Employee');
 
 // const bcrypt = require('bcrypt');
 
@@ -46,6 +46,10 @@ const taskSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    EmployeeIDs: [{
+      type: String,
+      ref: 'Employee',
+    }],
   },
   // set this to use virtual below
   {
