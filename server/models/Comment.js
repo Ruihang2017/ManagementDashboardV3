@@ -8,7 +8,6 @@ const commentSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-
   },
   commentContent: {
     type: String,
