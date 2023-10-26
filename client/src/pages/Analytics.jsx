@@ -60,7 +60,7 @@ const stats = [
     },
 ]
 
-export default function Dashboard() {
+export default function Analytics() {
 
     return (
         <Box>

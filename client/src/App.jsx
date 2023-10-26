@@ -23,6 +23,8 @@ import {
 import { CardTwoBtn } from './components/card/CardTwoBtn';
 import { Sidebar } from './components/sidebar/Sidebar'
 
+
+
 // setting up the theme
 const colors = {
   brand: {

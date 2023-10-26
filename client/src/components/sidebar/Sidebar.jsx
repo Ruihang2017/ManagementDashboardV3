@@ -11,6 +11,7 @@ import {
     Stack,
     StackDivider,
     Text,
+    Link,
 } from '@chakra-ui/react'
 import {
     FiBookmark,
@@ -21,6 +22,7 @@ import {
     FiPieChart,
     FiSearch,
     FiSettings,
+    FiFile,
 } from 'react-icons/fi'
 import { DocumentCollapse } from './DocumentCollapse'
 import { Logo } from './Logo'
@@ -55,18 +57,21 @@ export const Sidebar = () => (
                     <Input placeholder="Search" />
                 </InputGroup>
                 <Stack spacing="1">
-                    <SidebarButton leftIcon={<FiGrid />}>Dashboard</SidebarButton>
-                    <SidebarButton leftIcon={<FiPieChart />}>Analysis</SidebarButton>
-                    <DocumentCollapse />
-                    <SidebarButton leftIcon={<FiClock />}>History</SidebarButton>
-                    <SidebarButton leftIcon={<FiBookmark />}>Favorites</SidebarButton>
+                    {/* <SidebarButton leftIcon={<FiHelpCircle />}><Link href='/forum'>Forum</Link></SidebarButton> */}
+
+                    <SidebarButton leftIcon={<FiGrid />}><Link href='/'>Forum</Link></SidebarButton>
+                    <SidebarButton leftIcon={<FiFile />}><Link href='/task'>Task</Link></SidebarButton>
+
+                    <SidebarButton leftIcon={<FiPieChart />}><Link href='/analytics'>analytics</Link></SidebarButton>
+                    {/* <DocumentCollapse /> */}
+                    <SidebarButton leftIcon={<FiClock />}><Link href='/'>History</Link></SidebarButton>
+                    <SidebarButton leftIcon={<FiBookmark />}><Link href='/'>Favorites</Link></SidebarButton>
                 </Stack>
             </Stack>
             <Stack spacing="4" divider={<StackDivider />}>
                 <Box />
                 <Stack spacing="1">
-                    <SidebarButton leftIcon={<FiHelpCircle />}>Help Center</SidebarButton>
-                    <SidebarButton leftIcon={<FiSettings />}>Settings</SidebarButton>
+                    <SidebarButton leftIcon={<FiSettings />}><Link href='/setting'>Settings</Link></SidebarButton>
                 </Stack>
                 <HStack spacing="3" justify="space-between">
                     <HStack spacing="3">

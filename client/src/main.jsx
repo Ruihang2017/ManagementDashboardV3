@@ -5,7 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import App from './App.jsx'
 import SearchBooks from './pages/SearchBooks'
 import SavedBooks from './pages/SavedBooks'
-import Dashboard from './pages/Dashboard'
+import Analytics from './pages/Analytics.jsx'
+import Setting from './pages/Setting'
+import Forum from './pages/Forum'
+import Task from './pages/Task'
+
 
 const router = createBrowserRouter([
   {
@@ -15,12 +19,20 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />
+        element: <Forum />
       },
-      // {
-      //   index: true,
-      //   element: <SearchBooks />
-      // }, 
+      {
+        path: '/setting',
+        element: <Setting />
+      },
+      {
+        path: '/analytics',
+        element: <Analytics />
+      },
+      {
+        path: '/task',
+        element: <Task />
+      },
       {
         path: '/saved',
         element: <SavedBooks />
