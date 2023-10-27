@@ -12,6 +12,7 @@ import {
   Icon,
   Text,
   Avatar,
+  Button,
 } from "@chakra-ui/react";
 // Assets
 import {
@@ -23,7 +24,9 @@ import {
 
 
 export default function TodoMenu(props) {
-  const { employeesProfileInfo, icon, ...rest } = props;
+  const { taskEmployees, addToDoEmployee, icon, ...rest } = props;
+  console.log(taskEmployees);
+
   // Ellipsis modals
   const {
     isOpen: isOpen1,
@@ -51,17 +54,19 @@ export default function TodoMenu(props) {
       </MenuButton>
       <MenuList w='150px' minW='unset' maxW='150px !important' border='transparent'
         backdropFilter='blur(63px)' bg={bgList} boxShadow={bgShadow} borderRadius='20px' p='15px'>
-        {employeesProfileInfo.map((data) => {
+        {taskEmployees.map((data) => {
           return (< MenuItem key={data.employeeID} transition='0.2s linear' color={textColor} _hover={textHover}
             p='0px' borderRadius='8px' _active={{ bg: "transparent", }
             } _focus={{ bg: "transparent", }} mb='10px'>
-            <Flex align='center'>
+            {/* <Button onClick={() => addToDoEmployee(data)}> */}
+            <Flex onClick={() => addToDoEmployee(data)} align='center'>
               {/* <Icon as={MdOutlinePerson} h='16px' w='16px' me='8px' /> */}
               <Avatar me='8px' size="sm" name="Christoph Winston" src={data.avatarURI} />
               <Text fontSize='sm' fontWeight='400'>
                 {data.firstname} {data.lastname}
               </Text>
             </Flex>
+            {/* </Button> */}
           </MenuItem>)
         })}
       </MenuList>

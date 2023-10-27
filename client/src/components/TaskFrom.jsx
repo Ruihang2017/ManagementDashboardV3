@@ -41,6 +41,13 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo }) => {
 
     const [startDate, setStartDate] = useState(new Date());
 
+    const [taskEmployees, setTaskEmployees] = useState(() => {
+        return employeesProfileInfo.filter(employee => {
+            return selectedTask.EmployeeIDs.find(EmployeeID => EmployeeID === employee.employeeID);
+        })
+    })
+    console.log(taskEmployees);
+
     return (
         <Container py={{ base: '4', md: '8', }} px={{ base: '2', md: '8', }} maxWidth={"100%"}>
             <Stack spacing="5">
@@ -66,9 +73,8 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo }) => {
                         Members:
                     </Text>
                     <HStack spacing="3">
-                        {selectedTask.EmployeeIDs.map((EmployeeID, index) => {
-                            const employee = employeesProfileInfo.find((data) => data.employeeID === EmployeeID);
-                            return <Avatar key={EmployeeID} size="lg" name="Christoph Winston" src={employee.avatarURI} />
+                        {taskEmployees.map((taskEmployee, index) => {
+                            return <Avatar key={taskEmployee.employeeID} size="lg" name="Christoph Winston" src={taskEmployee.avatarURI} />
                         })}
                     </HStack>
                 </Stack>
@@ -107,7 +113,7 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo }) => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        < TodoTable todos={selectedTask.todos} employeesProfileInfo={employeesProfileInfo} />
+                        < TodoTable todos={selectedTask.todos} taskEmployees={taskEmployees} />
                     </Tbody>
                 </Table>
             </Stack>
