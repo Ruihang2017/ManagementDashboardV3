@@ -25,67 +25,49 @@ import { TiUserAddOutline } from "react-icons/ti";
 import { useState, useEffect } from 'react';
 import { TaskModal } from '../modal/TaskModal';
 import TodoMenu from "@components/menu/TodoMenu";
-import { ToDoTableRow } from "./ToDoTableRow";
-
+import ToDoTableRow from "@components/table/ToDoTableRow";
+import NewToDo from "@components/table/NewToDo";
 
 
 export const TodoTable = ({ todos, taskEmployees }) => {
 
-    // const [taskData, setTaskData] = useState(taskDataInput);
-    // const [todoCompleted, setTodoCompleted] = useState(false);
+    const [availableTaskEmployees, setAvailableTaskEmployees] = useState(taskEmployees);
 
-    // newToDo
     const [newToDo, SetNewToDo] = useState({
         name: "Task name",
         description: "Task description",
         employees: [],
     });
 
+
     const addToDoEmployee = (data) => {
         SetNewToDo({
             ...newToDo,
             employees: [...newToDo.employees, data],
         });
+
+        const newTaskEmployees = availableTaskEmployees.filter(taskEmployee => taskEmployee.employeeID !== data.employeeID);
+        setAvailableTaskEmployees(newTaskEmployees)
     }
 
-    const textColor = useColorModeValue("gray.700", "white");
+    const removeToDoEmployee = (data) => {
+        console.log(data);
+        const newTaskEmployees = newToDo.employees.filter(employee => employee.employeeID !== data.employeeID);
+        SetNewToDo({
+            ...newToDo,
+            employees: [...newTaskEmployees],
+        });
+
+        setAvailableTaskEmployees([...availableTaskEmployees, data])
+    }
 
     return (
         <>
             {todos.map((todo) => (
                 <ToDoTableRow key={todo.todoID} todo={todo} taskEmployees={taskEmployees} />
             ))}
-
-            <Tr>
-                <Td>
-
-                </Td>
-                <Td>
-                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.name} />
-                </Td>
-                <Td>
-                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.description} />
-                </Td>
-                <Td>
-                    <HStack spacing="2">
-                        <TodoMenu
-                            taskEmployees={taskEmployees}
-                            addToDoEmployee={addToDoEmployee}
-                            icon={<Icon as={TiUserAddOutline} w='24px' h='24px' color={textColor} />} />
-                        {/* {console.log(newToDo)} */}
-                        {newToDo.employees.map((employee, index) => {
-                            return <Avatar key={employee.employeeID} size="sm" name="Christoph Winston" src={employee.avatarURI} />
-                        })}
-                    </HStack>
-                </Td>
-                <Td>
-                    <HStack spacing="1">
-                        <IconButton icon={<FiCheckSquare />}
-                            variant="tertiary" aria-label="Edit task" />
-                    </HStack>
-                </Td>
-            </Tr>
-
+            <NewToDo newToDo={newToDo} taskEmployees={availableTaskEmployees}
+                addToDoEmployee={addToDoEmployee} removeToDoEmployee={removeToDoEmployee} />
         </>
     )
 }

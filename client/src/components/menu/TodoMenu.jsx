@@ -25,7 +25,6 @@ import {
 
 export default function TodoMenu(props) {
   const { taskEmployees, addToDoEmployee, icon, ...rest } = props;
-  console.log(taskEmployees);
 
   // Ellipsis modals
   const {

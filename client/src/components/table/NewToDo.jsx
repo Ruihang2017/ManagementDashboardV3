@@ -25,47 +25,47 @@ import { TiUserAddOutline } from "react-icons/ti";
 import { useState, useEffect } from 'react';
 import { TaskModal } from '../modal/TaskModal';
 import TodoMenu from "@components/menu/TodoMenu";
+import ToDoTableRow from "@components/table/ToDoTableRow";
 
 
-
-const ToDoTableRow = ({ todo, taskEmployees }) => {
-
-    // const [todoCompleted, setTodoCompleted] = useState(false);
+const NewToDo = ({ newToDo, taskEmployees, addToDoEmployee, removeToDoEmployee }) => {
 
     const textColor = useColorModeValue("gray.700", "white");
 
     return (
         <>
-            <Tr key={todo.todoID}>
+            <Tr>
                 <Td>
-                    <Checkbox />
+
                 </Td>
                 <Td>
-                    <Text color="fg.muted">{todo.name}</Text>
+                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.name} />
                 </Td>
                 <Td>
-                    <Text color="fg.muted">{todo.description}</Text>
+                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.description} />
                 </Td>
                 <Td>
                     <HStack spacing="2">
-                        {taskEmployees.map(taskEmployee => {
-                            if (todo.EmployeeIDs.find(EmployeeID => EmployeeID === taskEmployee.employeeID)) {
-                                return <Avatar
-                                    key={taskEmployee.employeeID} size="sm" name="Christoph Winston" src={taskEmployee.avatarURI} />
-                            }
-                        })
-                        }
+                        <TodoMenu
+                            taskEmployees={taskEmployees}
+                            addToDoEmployee={addToDoEmployee}
+                            icon={<Icon as={TiUserAddOutline} w='24px' h='24px' color={textColor} />} />
+                        {newToDo.employees.map((employee, index) => {
+                            return <Avatar onClick={() => removeToDoEmployee(employee)}
+                                key={employee.employeeID} size="sm" name="Christoph Winston" src={employee.avatarURI} />
+                        })}
                     </HStack>
                 </Td>
                 <Td>
                     <HStack spacing="1">
-                        <IconButton icon={<FiEdit2 />}
+                        <IconButton icon={<FiCheckSquare />}
                             variant="tertiary" aria-label="Edit task" />
                     </HStack>
                 </Td>
             </Tr>
+
         </>
     )
 }
 
-export default ToDoTableRow;
+export default NewToDo;

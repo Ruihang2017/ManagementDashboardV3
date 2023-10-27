@@ -46,7 +46,6 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo }) => {
             return selectedTask.EmployeeIDs.find(EmployeeID => EmployeeID === employee.employeeID);
         })
     })
-    console.log(taskEmployees);
 
     return (
         <Container py={{ base: '4', md: '8', }} px={{ base: '2', md: '8', }} maxWidth={"100%"}>
