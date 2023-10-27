@@ -112,7 +112,7 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo }) => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        < TodoTable todos={selectedTask.todos} taskEmployees={taskEmployees} />
+                        < TodoTable todos={selectedTask.todos} taskEmployees={taskEmployees} taskID={selectedTask.taskID} />
                     </Tbody>
                 </Table>
             </Stack>

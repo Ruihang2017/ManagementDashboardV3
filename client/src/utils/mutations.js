@@ -33,6 +33,31 @@ export const SAVE_BOOK = gql`
     }
 `;
 
+export const CREATE_TODO = gql`
+    mutation CreateToDo($taskId: String!, $todo: ToDoInput!) {
+        createToDo(taskID: $taskId, todo: $todo) {
+            _id
+            taskID
+            taskName
+            taskDescription
+            todos {
+                _id
+                todoID
+                name
+                description
+                completed
+                completionTime
+                EmployeeIDs
+            }
+            startingTime
+            targetTime
+            completionTime
+            completed
+            EmployeeIDs
+        }
+    }
+`;
+
 export const CREATE_USER = gql`
     mutation CreateUser($username: String!, $email: String!, $password: String!) {
         createUser(username: $username, email: $email, password: $password) {

@@ -28,9 +28,59 @@ import TodoMenu from "@components/menu/TodoMenu";
 import ToDoTableRow from "@components/table/ToDoTableRow";
 
 
-const NewToDo = ({ newToDo, taskEmployees, addToDoEmployee, removeToDoEmployee }) => {
+const NewToDo = ({ taskEmployees, addToDo, newToDo, SetNewToDo, availableTaskEmployees, setAvailableTaskEmployees }) => {
 
     const textColor = useColorModeValue("gray.700", "white");
+
+    // const [createToDo, { error }] = useMutation(CREATE_TODO, {
+    //     refetchQueries: [
+    //       QUERY_ME,
+    //       'me'
+    //     ]
+    //   });
+
+    // const [newToDo, SetNewToDo] = useState({
+    //     name: "Task name",
+    //     description: "Task description",
+    //     employees: [],
+    // });
+
+
+    // useEffect(() => {
+    //     setAvailableTaskEmployees(taskEmployees);
+    //     console.log(taskEmployees);
+    // }, [taskEmployees])
+
+    const addToDoEmployee = (data) => {
+        SetNewToDo({
+            ...newToDo,
+            employees: [...newToDo.employees, data],
+        });
+
+        const newTaskEmployees = availableTaskEmployees.filter(taskEmployee => taskEmployee.employeeID !== data.employeeID);
+        setAvailableTaskEmployees(newTaskEmployees)
+    }
+
+    const removeToDoEmployee = (data) => {
+        console.log(data);
+        const newTaskEmployees = newToDo.employees.filter(employee => employee.employeeID !== data.employeeID);
+        SetNewToDo({
+            ...newToDo,
+            employees: [...newTaskEmployees],
+        });
+
+        setAvailableTaskEmployees([...availableTaskEmployees, data])
+    }
+
+
+    // const handleNameInputChange = (event) => {
+    //     const newValue = event.target.value;
+    //     setInputValue(newValue);
+    // };
+
+    // useEffect(() => {
+    //     console.log(newToDo);
+    // }, [newToDo])
 
     return (
         <>
@@ -39,15 +89,27 @@ const NewToDo = ({ newToDo, taskEmployees, addToDoEmployee, removeToDoEmployee }
 
                 </Td>
                 <Td>
-                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.name} />
+                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.name}
+                        onChange={(event) => {
+                            SetNewToDo({
+                                ...newToDo,
+                                name: event.target.value,
+                            })
+                        }} />
                 </Td>
                 <Td>
-                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.description} />
+                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.description}
+                        onChange={(event) => {
+                            SetNewToDo({
+                                ...newToDo,
+                                description: event.target.value,
+                            })
+                        }} />
                 </Td>
                 <Td>
                     <HStack spacing="2">
                         <TodoMenu
-                            taskEmployees={taskEmployees}
+                            taskEmployees={availableTaskEmployees}
                             addToDoEmployee={addToDoEmployee}
                             icon={<Icon as={TiUserAddOutline} w='24px' h='24px' color={textColor} />} />
                         {newToDo.employees.map((employee, index) => {
@@ -58,7 +120,9 @@ const NewToDo = ({ newToDo, taskEmployees, addToDoEmployee, removeToDoEmployee }
                 </Td>
                 <Td>
                     <HStack spacing="1">
-                        <IconButton icon={<FiCheckSquare />}
+                        <IconButton
+                            onClick={() => addToDo(newToDo)}
+                            icon={<FiCheckSquare />}
                             variant="tertiary" aria-label="Edit task" />
                     </HStack>
                 </Td>
