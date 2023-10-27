@@ -15,20 +15,33 @@ import {
     Tr,
     useDisclosure,
     Input,
-
+    useColorModeValue,
 } from '@chakra-ui/react'
 import { FiEdit2, FiTrash2, FiCheckSquare } from 'react-icons/fi'
+import { IoEllipsisHorizontal } from "react-icons/io5";
+import { TiUserAddOutline } from "react-icons/ti";
+
 
 import { useState, useEffect } from 'react';
 import { TaskModal } from '../modal/TaskModal';
+import TodoMenu from "@components/menu/TodoMenu";
 
 
-export const TodoTable = ({ todos }) => {
+
+export const TodoTable = ({ todos, employeesProfileInfo }) => {
 
     // const [taskData, setTaskData] = useState(taskDataInput);
-    // console.log(taskData);
     // const [todoCompleted, setTodoCompleted] = useState(false);
 
+    const [newToDo, SetNewToDo] = useState({
+        name: "Task name",
+        description: "Task description",
+        EmployeeIDs: [],
+    });
+
+    const textColor = useColorModeValue("gray.700", "white");
+
+    console.log(employeesProfileInfo);
     return (
         <>
             {todos.map((todo) => (
@@ -47,7 +60,8 @@ export const TodoTable = ({ todos }) => {
                     <Td>
                         <HStack spacing="2">
                             {todo.EmployeeIDs.map((EmployeeID, index) => {
-                                return <Avatar key={EmployeeID} size="sm" name="Christoph Winston" src="https://tinyurl.com/yhkm2ek8" />
+                                const employee = employeesProfileInfo.find((data) => data.employeeID === EmployeeID);
+                                return <Avatar key={EmployeeID} size="sm" name="Christoph Winston" src={employee.avatarURI} />
                             })}
                         </HStack>
                     </Td>
@@ -64,13 +78,16 @@ export const TodoTable = ({ todos }) => {
 
                 </Td>
                 <Td>
-                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={" Task name"} />
+                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.name} />
                 </Td>
                 <Td>
-                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={" Task description"} />
+                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.description} />
                 </Td>
                 <Td>
-                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={" Members involved"} />
+                    {/* <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.EmployeeIDs} /> */}
+                    <TodoMenu
+                        employeesProfileInfo={employeesProfileInfo}
+                        icon={<Icon as={TiUserAddOutline} w='24px' h='24px' color={textColor} />} />
                 </Td>
                 <Td>
                     <HStack spacing="1">

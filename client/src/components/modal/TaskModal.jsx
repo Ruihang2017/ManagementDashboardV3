@@ -24,7 +24,7 @@ import { FiSearch } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
 import { TaskFrom } from '../TaskFrom'
 
-export const TaskModal = ({ disclosure, selectedTask }) => {
+export const TaskModal = ({ disclosure, selectedTask, employeesProfileInfo }) => {
 
     // const isMobile = useBreakpointValue({
     //     base: true,
@@ -43,7 +43,7 @@ export const TaskModal = ({ disclosure, selectedTask }) => {
                     <ModalHeader>Task Modal</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6} >
-                        <TaskFrom selectedTask={selectedTask} />
+                        <TaskFrom selectedTask={selectedTask} employeesProfileInfo={employeesProfileInfo} />
                     </ModalBody>
 
                     <ModalFooter  >

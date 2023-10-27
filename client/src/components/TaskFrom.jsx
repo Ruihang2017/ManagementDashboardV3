@@ -37,8 +37,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { TodoTable } from "./table/ToDoTable"
 
-export const TaskFrom = ({ selectedTask }) => {
-
+export const TaskFrom = ({ selectedTask, employeesProfileInfo }) => {
 
     const [startDate, setStartDate] = useState(new Date());
 
@@ -68,7 +67,8 @@ export const TaskFrom = ({ selectedTask }) => {
                     </Text>
                     <HStack spacing="3">
                         {selectedTask.EmployeeIDs.map((EmployeeID, index) => {
-                            return <Avatar key={EmployeeID} size="lg" name="Christoph Winston" src="https://tinyurl.com/yhkm2ek8" />
+                            const employee = employeesProfileInfo.find((data) => data.employeeID === EmployeeID);
+                            return <Avatar key={EmployeeID} size="lg" name="Christoph Winston" src={employee.avatarURI} />
                         })}
                     </HStack>
                 </Stack>
@@ -107,7 +107,7 @@ export const TaskFrom = ({ selectedTask }) => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        < TodoTable todos={selectedTask.todos} />
+                        < TodoTable todos={selectedTask.todos} employeesProfileInfo={employeesProfileInfo} />
                     </Tbody>
                 </Table>
             </Stack>

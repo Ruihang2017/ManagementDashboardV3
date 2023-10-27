@@ -37,6 +37,10 @@ const employeeSchema = new Schema(
     roleID: {
       type: String,
     },
+    avatarURI: {
+      type: String,
+      default: "https://i.pravatar.cc/300",
+    },
     // thoughtIDs: [{
     //   type: String,
     //   ref: 'Thought',

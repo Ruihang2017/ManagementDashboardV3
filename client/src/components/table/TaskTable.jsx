@@ -174,13 +174,15 @@ const taskDataInput = [
     }
 ]
 
-export const TaskTable = ({ taskData }) => {
+export const TaskTable = ({ taskData, employeesProfileInfo }) => {
 
     const disclosure = useDisclosure()
     const [selectedTask, SetSelectedTask] = useState("");
 
     // const [taskData, setTaskData] = useState(taskDataInput);
-    // console.log(taskData);
+    // console.log(employeesProfileInfo);
+
+
     return (
         <>
             <Table >
@@ -214,11 +216,13 @@ export const TaskTable = ({ taskData }) => {
                             </Td>
                             <Td>
                                 <HStack spacing="1">
-                                    {task.EmployeeIDs.map(id => (<Text key={id} color="fg.muted">{id}</Text>))}
+                                    {task.EmployeeIDs.map((id) => {
+                                        const employee = employeesProfileInfo.find((data) => data.employeeID === id);
+                                        return (
+                                            <Avatar key={id} size="sm" name="Christoph Winston" src={employee.avatarURI} />
+                                        )
+                                    })}
                                 </HStack>
-                                {/* <HStack spacing="3">
-                                <Avatar name={member.name} src={member.avatarUrl} boxSize="10" />
-                            </HStack> */}
                             </Td>
                             <Td>
                                 <HStack spacing="1">
@@ -234,7 +238,7 @@ export const TaskTable = ({ taskData }) => {
                     ))}
                 </Tbody>
             </Table>
-            <TaskModal disclosure={disclosure} selectedTask={selectedTask} />
+            <TaskModal disclosure={disclosure} selectedTask={selectedTask} employeesProfileInfo={employeesProfileInfo} />
         </>
     )
 }

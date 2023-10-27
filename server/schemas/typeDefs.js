@@ -51,6 +51,7 @@ const typeDefs = `
         email: String
         password: String
         roleID: String
+        avatarURI:String
     }
 
     input EmployeeInput {
@@ -61,6 +62,7 @@ const typeDefs = `
         email: String
         password: String
         roleID: String
+        avatarURI:String
     }
 
     type Role {
