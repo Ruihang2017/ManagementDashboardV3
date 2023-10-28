@@ -22,33 +22,42 @@ import { Stack } from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
-import { QUERY_THOUGHTS, QUERY_EMPLOYEES_PROFILE_INFO } from '@utils/queries';
+import { QUERY_THOUGHTS, QUERY_EMPLOYEES_PROFILE_INFO, QUERY_EMPLOYEES } from '@utils/queries';
 
 
 export default function Forum() {
 
-    //  QUERY_TASKS  
-    const { loading: loadingThoughts, data: dataThoughts } = useQuery(QUERY_THOUGHTS);
-    const thoughts = dataThoughts?.thoughts || [];
 
     //  QUERY_EMPLOYEES_PROFILE_INFO  
     const { loading: loadingQueryEmployeesProfileInfo, data: dataQueryEmployeesProfileInfo } = useQuery(QUERY_EMPLOYEES_PROFILE_INFO);
     const employeesProfileInfo = dataQueryEmployeesProfileInfo?.employees || [];
 
-    const [thoughtData, setThoughtData] = useState();
+    //  QUERY_TASKS  
+    const { loading: loadingThoughts, data: dataThoughts } = useQuery(QUERY_THOUGHTS);
+    const thoughts = dataThoughts?.thoughts || [];
 
-    // populate thoughtData
-    useEffect(() => {
-        const newThoughts = thoughts.map(thought => {
-            const employee = employeesProfileInfo.find(employeesProfile => employeesProfile.employeeID === thought.EmployeeID);
+    // populate the thoughtData with Employee data
+    const thoughtData = thoughts.map(thought => {
+        const populatedEmployee = employeesProfileInfo.find(employeesProfile => employeesProfile.employeeID === thought.EmployeeID);
+        const populatedComments = thought.comments.map(comment => {
+            const populatedCommentEmployee = employeesProfileInfo.find(employeesProfile => employeesProfile.employeeID === comment.EmployeeID);
             return {
-                ...thought,
-                EmployeeID: employee
-            }
-        })
-        console.log(newThoughts);
-        setThoughtData(newThoughts);
-    }, [thoughts, employeesProfileInfo]);
+                ...comment,
+                EmployeeID: populatedCommentEmployee
+            };
+        });
+
+        return {
+            ...thought,
+            EmployeeID: populatedEmployee,
+            comments: populatedComments
+        };
+    });
+
+    console.log(thoughtData);
+    // useEffect(() => {
+    //     // console.log(thoughtData);
+    // }, [thoughtData]);
 
     // Chakra color mode
     const textColor = useColorModeValue("gray.700", "white");
@@ -76,8 +85,10 @@ export default function Forum() {
                 {thoughtData.map((thought) => {
                     return (
                         <Post
-                            likes='28.5k' comments='34'
+                            key={thought.thoughtID}
+                            likes='28.5k' comments={thought.comments.length}
                             avatar={thought.EmployeeID.avatarURI}
+
                             name={thought.EmployeeID.firstname + " " + thought.EmployeeID.lastname}
                             username={"@" + thought.EmployeeID.firstname + "." + thought.EmployeeID.lastname}
                             image={postImage}
@@ -85,34 +96,24 @@ export default function Forum() {
                             you={avatar4} my="10"
                             thoughtData={thought.description}
                             thoughtTitle={thought.title}
-                            commentBlocks={[]}
+                            commentBlocks={
+                                <Box>
+                                    {thought.comments.map(comment => {
+                                        return (<Comment
+                                            key={comment.commentID}
+                                            avatar={comment.EmployeeID.avatarURI}
+                                            name={comment.EmployeeID.firstname + " " + comment.EmployeeID.lastname}
+                                            text={comment.commentContent}
+                                            tags={["photography", "portrait", "image"]}
+                                            time={comment.postedTime}
+                                            pe='20px'
+                                        />)
+                                    })}
+                                </Box>
+                            }
                         />
                     )
                 })}
-                <Post
-                    likes='28.5k' comments='34' avatar={avatar10} name='Esthera William' username='@esthera.william'
-                    image={postImage} shares='156' saves='20' you={avatar4} my="10"
-                    commentBlocks={
-                        <Box>
-                            <Comment
-                                avatar={avatar10}
-                                name='@esthera.william'
-                                text="I always felt like I could do anything. That’s the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can’t do anything, you won’t do anything. I was taught I could do everything."
-                                tags={["photography", "portrait", "image"]}
-                                time='24 mins ago'
-                                pe='20px'
-                            />
-                            <Comment
-                                avatar={avatar2}
-                                name='@roberto.michael91  '
-                                text='Wow! This is an amazing point of view! The time is now for it to be okay to be great! 🙏🏼😁'
-                                time='21 mins ago'
-                                pe='20px'
-                            />{" "}
-                        </Box>
-                    } />
-
-
             </Flex>
             <VSeparator mx='20px' bg={paleGray} display={{ base: "none", xl: "flex" }} />
             {/* <Trending w={{ base: "100%", xl: "500px", "2xl": "400px" }} maxH={{ base: "100%", xl: "1170px", "2xl": "100%" }} /> */}

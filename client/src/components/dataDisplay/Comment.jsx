@@ -17,13 +17,13 @@ export default function Comment(props) {
   const textColorSecondary = useColorModeValue("secondaryGray.600", "white");
   const textGray = useColorModeValue("#68769F", "secondaryGray.600");
   return (
-    <Flex mb='30px' {...rest}>
+    <Flex mb='10px' {...rest}>
       <Avatar src={avatar} w='50px' h='50px' me='15px' />
       <Flex direction='column'>
         <Text color={textColor} fontWeight='400' fontSize='md' mt='6px'>
-          {/* <Text as='span' fontSize='md' color={textColor} fontWeight='700'>
+          <Text as='span' fontSize='md' color={textColor} fontWeight='700'>
             {name}
-          </Text>{" "} */}
+          </Text>{" "}
           {text}
         </Text>
         {/* <Flex>

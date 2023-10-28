@@ -38,7 +38,7 @@ export default function Stories(props) {
         return true;
       }
     })
-    console.log(newEmployeeWithThoughts);
+    // console.log(newEmployeeWithThoughts);
 
     setEmployeeWithThoughts(newEmployeeWithThoughts);
   }, [thoughts, employeesProfileInfo]);

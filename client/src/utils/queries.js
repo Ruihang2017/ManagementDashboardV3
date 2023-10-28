@@ -41,7 +41,7 @@ export const QUERY_EMPLOYEE = gql`
 `;
 
 export const QUERY_EMPLOYEES = gql`
-    query Roles {
+    query Employees {
         employees {
             _id
             employeeID
