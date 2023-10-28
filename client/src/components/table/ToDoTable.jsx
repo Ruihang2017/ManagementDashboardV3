@@ -108,7 +108,7 @@ export const TodoTable = (props) => {
 
     // updateToDo
     const updateToDo = async (_data) => {
-
+        console.log(_data);
         const id = uuidv4();
 
         const variables = {

@@ -52,8 +52,8 @@ const ToDoTableRow = (props) => {
 
 
     // useEffect(() => {
-    //     console.log(availableTaskEmployees);
-    // }, [availableTaskEmployees]);
+    //     console.log(todo);
+    // }, [todo]);
 
 
     const addToDoEmployee = (data) => {
@@ -79,7 +79,16 @@ const ToDoTableRow = (props) => {
         <>
             <Tr key={todo.todoID}>
                 <Td>
-                    <Checkbox />
+                    <Checkbox
+                        isChecked={todo.completed}
+                        onChange={(event) => {
+                            const changedTodo = {
+                                ...todo,
+                                completed: event.target.checked,
+                            }
+                            setTodo(changedTodo)
+                            props.updateToDo(changedTodo);
+                        }} />
                 </Td>
                 <Td>
                     {isEdit ?
@@ -112,20 +121,31 @@ const ToDoTableRow = (props) => {
                     <HStack spacing="2">
                         <>
                             {isEdit ?
-                                (<TodoMenu
-                                    taskEmployees={availableTaskEmployees}
-                                    addToDoEmployee={addToDoEmployee}
-                                    icon={<Icon as={TiUserAddOutline} w='24px' h='24px' color={textColor} />} />
-                                ) : (<></>)}
-                            {taskEmployees.map(taskEmployee => {
-                                if (todo.EmployeeIDs.find(EmployeeID => EmployeeID === taskEmployee.employeeID)) {
-                                    return <Avatar
-                                        key={taskEmployee.employeeID}
-                                        onClick={() => removeToDoEmployee(taskEmployee)}
-                                        size="sm" name="Christoph Winston" src={taskEmployee.avatarURI} />
-                                }
-                            })
-                            }
+                                (<>
+                                    <TodoMenu
+                                        taskEmployees={availableTaskEmployees}
+                                        addToDoEmployee={addToDoEmployee}
+                                        icon={<Icon as={TiUserAddOutline} w='24px' h='24px' color={textColor} />} />
+                                    {taskEmployees.map(taskEmployee => {
+                                        if (todo.EmployeeIDs.find(EmployeeID => EmployeeID === taskEmployee.employeeID)) {
+                                            return <Avatar
+                                                key={taskEmployee.employeeID}
+                                                onClick={() => removeToDoEmployee(taskEmployee)}
+                                                size="sm" name="Christoph Winston" src={taskEmployee.avatarURI} />
+                                        }
+                                    })
+                                    }
+                                </>
+                                ) : (<>
+                                    {taskEmployees.map(taskEmployee => {
+                                        if (todo.EmployeeIDs.find(EmployeeID => EmployeeID === taskEmployee.employeeID)) {
+                                            return <Avatar
+                                                key={taskEmployee.employeeID}
+                                                // onClick={() => removeToDoEmployee(taskEmployee)}
+                                                size="sm" name="Christoph Winston" src={taskEmployee.avatarURI} />
+                                        }
+                                    })
+                                    }</>)}
                         </>
                     </HStack>
                 </Td>
@@ -149,10 +169,12 @@ const ToDoTableRow = (props) => {
                             :
                             (
                                 <>
-                                    <IconButton icon={<FiEdit2 />} variant="tertiary" aria-label="Edit task"
-                                        onClick={() => {
-                                            setIsEdit(true);
-                                        }} />
+                                    {todo.completed ?
+                                        (<></>) :
+                                        (<IconButton icon={<FiEdit2 />} variant="tertiary" aria-label="Edit task"
+                                            onClick={() => {
+                                                setIsEdit(true);
+                                            }} />)}
                                 </>
                             )}
                     </HStack>
