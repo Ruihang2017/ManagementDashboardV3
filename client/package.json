@@ -22,7 +22,6 @@
     "apexcharts": "^3.44.0",
     "bootstrap": "^5.2.3",
     "dayjs": "^1.11.10",
-    "dayzed": "3.2.2",
     "framer-motion": "^10.16.4",
     "graphql": "^16.6.0",
     "jwt-decode": "^3.1.2",
