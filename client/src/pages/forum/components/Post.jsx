@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Flex,
+  HStack,
   Icon,
   IconButton,
   Image,
@@ -44,6 +45,8 @@ export default function Post(props) {
     saves,
     commentBlocks,
     you,
+    thoughtData,
+    thoughtTitle,
     ...rest
   } = props;
   // Chakra color mode
@@ -83,10 +86,12 @@ export default function Post(props) {
             }
           />
         </Flex>
-        <Text fontSize='md' px="5" color={textColor} fontWeight='600'>
-          I always felt like I could do anything. That’s the main thing people
-          are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can’t do anything, you won’t do anything. I was taught I could do everything.
-        </Text>
+        <HStack>
+          <Text fontSize='md' px="1" color={textColor} fontWeight='600'>{"[" + thoughtTitle + "]"}</Text>
+
+          <Text fontSize='md' px="1" color={textColor} fontWeight='600'>{thoughtData}</Text>
+        </HStack>
+
       </Box>
 
       <Flex direction='column'>

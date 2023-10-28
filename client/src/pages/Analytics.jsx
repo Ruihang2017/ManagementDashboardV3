@@ -61,9 +61,12 @@ const stats = [
 ]
 
 export default function Analytics() {
+    const textColor = useColorModeValue("gray.700", "white");
+    const paleGray = useColorModeValue("secondaryGray.400", "whiteAlpha.100");
+    const white = useColorModeValue('white', 'navy.900');
 
     return (
-        <Box>
+        <Box >
             <SimpleGrid
                 columns={{ sm: 1, md: 3, "2xl": 3 }}
                 gap='3'

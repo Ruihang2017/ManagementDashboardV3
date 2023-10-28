@@ -8,7 +8,7 @@ const todoSchema = new Schema(
         todoID: {
             type: String,
             required: true,
-            unique: true,
+            // unique: true,
         },
         name: {
             type: String,

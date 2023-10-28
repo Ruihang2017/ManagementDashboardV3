@@ -26,7 +26,7 @@ import { TaskFrom } from '../TaskFrom'
 import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_TASK } from '@utils/mutations';
 
-export const TaskModal = ({ disclosure, selectedTask, employeesProfileInfo }) => {
+export const TaskModal = ({ disclosure, selectedTask, employeesProfileInfo, isNewTask, taskData, setTaskData }) => {
 
     // const isMobile = useBreakpointValue({
     //     base: true,
@@ -45,7 +45,9 @@ export const TaskModal = ({ disclosure, selectedTask, employeesProfileInfo }) =>
                     <ModalHeader>Task Modal</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6} >
-                        <TaskFrom selectedTask={selectedTask} employeesProfileInfo={employeesProfileInfo} disclosure={disclosure} />
+                        <TaskFrom selectedTask={selectedTask} employeesProfileInfo={employeesProfileInfo}
+                            disclosure={disclosure} isNewTask={isNewTask}
+                            taskData={taskData} setTaskData={setTaskData} />
                     </ModalBody>
                 </ModalContent>
             </Modal >

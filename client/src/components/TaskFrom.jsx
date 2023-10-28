@@ -38,18 +38,18 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useQuery, useMutation } from '@apollo/client';
-import { UPDATE_TASK } from '@utils/mutations';
+import { UPDATE_TASK, CREATE_TASK } from '@utils/mutations';
 import { TiUserAddOutline } from "react-icons/ti";
-
 
 import { TodoTable } from "./table/ToDoTable"
 import TaskMenu from "@components/menu/TaskMenu";
 
-export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure }) => {
+export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNewTask, taskData, setTaskData }) => {
 
     const textColor = useColorModeValue("gray.700", "white");
 
     const [UpdateTask, { UpdateTaskError }] = useMutation(UPDATE_TASK);
+    const [CreateTask, { CreateTaskError }] = useMutation(CREATE_TASK);
 
     const [startDate, setStartDate] = useState(new Date());
     const [completeDate, setCompleteDate] = useState(new Date());
@@ -79,8 +79,6 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure }) => 
     }, [task]);
 
 
-
-
     const changeTaskCompleted = (value) => {
         const updatedTask = {
             ...task,
@@ -89,7 +87,7 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure }) => 
         setTask(updatedTask)
     }
 
-    const addToDoEmployee = (data) => {
+    const addTaskEmployee = (data) => {
         // console.log(data);
         // console.log(task);
 
@@ -108,10 +106,15 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure }) => 
         })
     }
 
-    const removeToDoEmployee = (data) => {
+    const removeTaskEmployee = (data) => {
         setAvailableTaskEmployees([...availableTaskEmployees, data]);
         const newTaskEmployees = taskEmployees.filter(taskEmployee => taskEmployee.employeeID !== data.employeeID);
         setTaskEmployees(newTaskEmployees);
+        const newTaskEmployeesID = newTaskEmployees.map(newTaskEmployee => newTaskEmployee.employeeID)
+        setTask({
+            ...task,
+            EmployeeIDs: [...newTaskEmployeesID],
+        })
     }
 
     // updateToDo
@@ -147,7 +150,14 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure }) => 
             console.log(data);
 
             setTask(data.updateTask);
-
+            const newTaskData = taskData.map(task => {
+                if (task.taskID === data.updateTask.taskID) {
+                    return data.updateTask
+                }
+                return task;
+            });
+            // const newTaskData = [...filteredTaskData, data.updateTask];
+            setTaskData(newTaskData);
         } catch (err) {
             console.error(err);
         }
@@ -231,12 +241,12 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure }) => 
                     <HStack spacing="3">
                         <TaskMenu
                             taskEmployees={availableTaskEmployees}
-                            addToDoEmployee={addToDoEmployee}
+                            addToDoEmployee={addTaskEmployee}
                             icon={<Icon as={TiUserAddOutline} w='64px' h='64px' color={textColor} />} />
                         {taskEmployees.map((taskEmployee, index) => {
                             return <Avatar key={taskEmployee.employeeID} size="lg" name="Christoph Winston" src={taskEmployee.avatarURI}
                                 onClick={() => {
-                                    removeToDoEmployee(taskEmployee);
+                                    removeTaskEmployee(taskEmployee);
                                 }} />
                         })}
                     </HStack>
