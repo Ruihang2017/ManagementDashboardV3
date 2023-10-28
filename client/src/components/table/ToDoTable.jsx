@@ -33,7 +33,7 @@ import { CREATE_TODO, UPDATE_TODO, DELETE_TODO } from '@utils/mutations';
 
 
 export const TodoTable = (props) => {
-    // { todos, taskEmployees, taskID }
+    // { todos, setTask, taskEmployees, taskID }
     const [todos, setTodos] = useState(props.todos)
     const [taskEmployees, setTaskEmployees] = useState(props.taskEmployees)
     const [taskID, setTaskID] = useState(props.taskID)
@@ -51,8 +51,12 @@ export const TodoTable = (props) => {
 
 
     useEffect(() => {
-        console.log(newToDo);
-    }, [newToDo]);
+        props.setTask({
+            ...props.task,
+            todos: todos,
+        })
+        // console.log(todos);
+    }, [todos]);
 
     const addToDo = async (_data) => {
 
@@ -109,7 +113,6 @@ export const TodoTable = (props) => {
     // updateToDo
     const updateToDo = async (_data) => {
         console.log(_data);
-        const id = uuidv4();
 
         const variables = {
             taskId: taskID,
@@ -160,7 +163,8 @@ export const TodoTable = (props) => {
             {todos.map((todo) => (
                 <ToDoTableRow key={todo.todoID} todo={todo} taskEmployees={taskEmployees}
                     updateToDo={updateToDo}
-                    deleteToDo={deleteToDo} />
+                    deleteToDo={deleteToDo}
+                    changeTaskCompleted={props.changeTaskCompleted} />
             ))}
             <NewToDo taskEmployees={taskEmployees} addToDo={addToDo}
                 newToDo={newToDo} SetNewToDo={SetNewToDo}

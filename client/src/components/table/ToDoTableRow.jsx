@@ -82,12 +82,17 @@ const ToDoTableRow = (props) => {
                     <Checkbox
                         isChecked={todo.completed}
                         onChange={(event) => {
+                            if (isEdit) return;
                             const changedTodo = {
                                 ...todo,
                                 completed: event.target.checked,
                             }
                             setTodo(changedTodo)
                             props.updateToDo(changedTodo);
+                            if (!event.target.checked) {
+                                props.changeTaskCompleted(false);
+                            }
+
                         }} />
                 </Td>
                 <Td>

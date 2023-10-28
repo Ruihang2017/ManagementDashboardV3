@@ -23,6 +23,8 @@ import {
 import { FiSearch } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
 import { TaskFrom } from '../TaskFrom'
+import { useQuery, useMutation } from '@apollo/client';
+import { UPDATE_TASK } from '@utils/mutations';
 
 export const TaskModal = ({ disclosure, selectedTask, employeesProfileInfo }) => {
 
@@ -43,15 +45,8 @@ export const TaskModal = ({ disclosure, selectedTask, employeesProfileInfo }) =>
                     <ModalHeader>Task Modal</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6} >
-                        <TaskFrom selectedTask={selectedTask} employeesProfileInfo={employeesProfileInfo} />
+                        <TaskFrom selectedTask={selectedTask} employeesProfileInfo={employeesProfileInfo} disclosure={disclosure} />
                     </ModalBody>
-
-                    <ModalFooter  >
-                        <Button colorScheme='blue' mr={3}>
-                            Save
-                        </Button>
-                        <Button onClick={disclosure.onClose}>Cancel</Button>
-                    </ModalFooter>
                 </ModalContent>
             </Modal >
         </>
