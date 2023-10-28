@@ -18,6 +18,7 @@ import {
 import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 import { useState, useEffect } from 'react';
 import { TaskModal } from '../modal/TaskModal';
+import { TaskTableRow } from './TaskTableRow';
 
 //   import { members } from './data'
 
@@ -45,44 +46,12 @@ export const TaskTable = ({ taskData, employeesProfileInfo }) => {
                 </Thead>
                 <Tbody>
                     {taskData.map((task) => (
-                        <Tr key={task.taskID}>
-
-                            <Td>
-                                <Badge size="sm" colorScheme={task.completed ? 'green' : 'red'}>
-                                    {task.completed ? "Completed" : "Incomplete"}
-                                </Badge>
-                            </Td>
-                            <Td>
-                                <Text color="fg.muted">{task.taskID}</Text>
-                            </Td>
-                            <Td>
-                                <Text color="fg.muted">{task.taskName}</Text>
-                            </Td>
-                            <Td>
-                                <Text color="fg.muted">{task.targetTime}</Text>
-                            </Td>
-                            <Td>
-                                <HStack spacing="1">
-                                    {task.EmployeeIDs.map((id) => {
-                                        const employee = employeesProfileInfo.find((data) => data.employeeID === id);
-                                        return (
-                                            <Avatar key={id} size="sm" name="Christoph Winston" src={employee.avatarURI} />
-                                        )
-                                    })}
-                                </HStack>
-                            </Td>
-                            <Td>
-                                <HStack spacing="1">
-                                    {/* <Checkbox /> */}
-                                    <IconButton icon={<FiEdit2 />}
-                                        variant="tertiary" aria-label="Edit task" onClick={() => {
-                                            disclosure.onOpen();
-                                            SetSelectedTask(task);
-                                        }} />
-                                </HStack>
-                            </Td>
-                        </Tr>
+                        <TaskTableRow key={task.taskID}
+                            task={task} employeesProfileInfo={employeesProfileInfo}
+                            SetSelectedTask={SetSelectedTask} disclosure={disclosure} isNew={false}
+                        />
                     ))}
+
                 </Tbody>
             </Table>
             <TaskModal disclosure={disclosure} selectedTask={selectedTask} employeesProfileInfo={employeesProfileInfo} />

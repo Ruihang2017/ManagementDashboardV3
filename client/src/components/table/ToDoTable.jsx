@@ -29,7 +29,7 @@ import { TaskModal } from '../modal/TaskModal';
 import TodoMenu from "@components/menu/TodoMenu";
 import ToDoTableRow from "@components/table/ToDoTableRow";
 import NewToDo from "@components/table/NewToDo";
-import { CREATE_TODO } from '@utils/mutations';
+import { CREATE_TODO, UPDATE_TODO, DELETE_TODO } from '@utils/mutations';
 
 
 export const TodoTable = (props) => {
@@ -39,7 +39,9 @@ export const TodoTable = (props) => {
     const [taskID, setTaskID] = useState(props.taskID)
     const [availableTaskEmployees, setAvailableTaskEmployees] = useState(taskEmployees);
 
-    const [createToDo, { error }] = useMutation(CREATE_TODO);
+    const [createToDo, { createToDoError }] = useMutation(CREATE_TODO);
+    const [UpdateToDo, { UpdateToDoError }] = useMutation(UPDATE_TODO);
+    const [DeleteToDo, { DeleteToDoError }] = useMutation(DELETE_TODO);
 
     const [newToDo, SetNewToDo] = useState({
         name: "Task name",
@@ -47,10 +49,15 @@ export const TodoTable = (props) => {
         employees: [],
     });
 
-    const addToDo = async (data) => {
+
+    useEffect(() => {
+        console.log(newToDo);
+    }, [newToDo]);
+
+    const addToDo = async (_data) => {
 
         const EmployeeIDs = [];
-        data.employees.forEach(employee => {
+        _data.employees.forEach(employee => {
             EmployeeIDs.push(employee.employeeID);
         });
 
@@ -60,8 +67,8 @@ export const TodoTable = (props) => {
             taskId: taskID,
             todo: {
                 todoID: id,
-                name: data.name,
-                description: data.description,
+                name: _data.name,
+                description: _data.description,
                 completed: false,
                 EmployeeIDs: EmployeeIDs,
             }
@@ -90,6 +97,7 @@ export const TodoTable = (props) => {
                 description: "Task description",
                 employees: [],
             });
+
             // if book successfully saves to user's account, save book id to state
             // setSavedBookIds([...savedBookIds, bookToSave.bookId]);
 
@@ -98,10 +106,61 @@ export const TodoTable = (props) => {
         }
     }
 
+    // updateToDo
+    const updateToDo = async (_data) => {
+
+        const id = uuidv4();
+
+        const variables = {
+            taskId: taskID,
+            todo: {
+                EmployeeIDs: _data.EmployeeIDs,
+                completed: _data.completed,
+                description: _data.description,
+                name: _data.name,
+                todoID: _data.todoID,
+            }
+        }
+        try {
+            const { data } = await UpdateToDo({
+                variables: variables
+            });
+            setTodos(data.updateToDo.todos)
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    // deleteToDo
+    const deleteToDo = async (_data) => {
+
+        const id = uuidv4();
+
+        const variables = {
+            taskId: taskID,
+            todoId: _data.todoID,
+        }
+        // console.log(variables);
+
+        try {
+            const { data } = await DeleteToDo({
+                variables: variables
+            });
+            setTodos(data.deleteToDo.todos)
+            // console.log(data);
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+
     return (
         <>
             {todos.map((todo) => (
-                <ToDoTableRow key={todo.todoID} todo={todo} taskEmployees={taskEmployees} />
+                <ToDoTableRow key={todo.todoID} todo={todo} taskEmployees={taskEmployees}
+                    updateToDo={updateToDo}
+                    deleteToDo={deleteToDo} />
             ))}
             <NewToDo taskEmployees={taskEmployees} addToDo={addToDo}
                 newToDo={newToDo} SetNewToDo={SetNewToDo}

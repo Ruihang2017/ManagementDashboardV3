@@ -32,24 +32,6 @@ const NewToDo = ({ taskEmployees, addToDo, newToDo, SetNewToDo, availableTaskEmp
 
     const textColor = useColorModeValue("gray.700", "white");
 
-    // const [createToDo, { error }] = useMutation(CREATE_TODO, {
-    //     refetchQueries: [
-    //       QUERY_ME,
-    //       'me'
-    //     ]
-    //   });
-
-    // const [newToDo, SetNewToDo] = useState({
-    //     name: "Task name",
-    //     description: "Task description",
-    //     employees: [],
-    // });
-
-
-    // useEffect(() => {
-    //     setAvailableTaskEmployees(taskEmployees);
-    //     console.log(taskEmployees);
-    // }, [taskEmployees])
 
     const addToDoEmployee = (data) => {
         SetNewToDo({
@@ -72,16 +54,6 @@ const NewToDo = ({ taskEmployees, addToDo, newToDo, SetNewToDo, availableTaskEmp
         setAvailableTaskEmployees([...availableTaskEmployees, data])
     }
 
-
-    // const handleNameInputChange = (event) => {
-    //     const newValue = event.target.value;
-    //     setInputValue(newValue);
-    // };
-
-    // useEffect(() => {
-    //     console.log(newToDo);
-    // }, [newToDo])
-
     return (
         <>
             <Tr>
@@ -89,7 +61,7 @@ const NewToDo = ({ taskEmployees, addToDo, newToDo, SetNewToDo, availableTaskEmp
 
                 </Td>
                 <Td>
-                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.name}
+                    <Input px="0" maxW={{ md: '3xl', }} value={newToDo.name}
                         onChange={(event) => {
                             SetNewToDo({
                                 ...newToDo,
@@ -98,7 +70,7 @@ const NewToDo = ({ taskEmployees, addToDo, newToDo, SetNewToDo, availableTaskEmp
                         }} />
                 </Td>
                 <Td>
-                    <Input px="0" maxW={{ md: '3xl', }} defaultValue={newToDo.description}
+                    <Input px="0" maxW={{ md: '3xl', }} value={newToDo.description}
                         onChange={(event) => {
                             SetNewToDo({
                                 ...newToDo,
