@@ -64,10 +64,10 @@ export default function Forum() {
     const paleGray = useColorModeValue("secondaryGray.400", "whiteAlpha.100");
     const white = useColorModeValue('white', 'navy.900');
 
-    const isMobile = useBreakpointValue({
-        base: true,
-        md: false,
-    })
+    // const isMobile = useBreakpointValue({
+    //     base: true,
+    //     md: false,
+    // })
 
     if (loadingThoughts || loadingQueryEmployeesProfileInfo) {
         return <div>Loading...</div>;
@@ -75,7 +75,8 @@ export default function Forum() {
 
     return (
         <Flex bgColor={paleGray} direction={{ base: "column", xl: "row" }} px={5} pt={{ base: "130px", md: "80px", xl: "80px" }}>
-            <Flex direction='column' mb={{ base: "20px", xl: "unset" }} maxW={{ xl: "100%", "2xl": "95%" }}>
+            <Flex direction='column' mb={{ base: "20px", xl: "unset" }} width={{ base: "25%", sm: "35%", md: "65%", xl: "100%", "2xl": "95%" }}>
+
                 <Stories mb='50px' thoughts={thoughts} employeesprofileinfo={employeesProfileInfo} />
                 <Flex mb='20px'>
                     <Text me='auto' ms='20px' fontSize='2xl' fontWeight='700' color={textColor}>
