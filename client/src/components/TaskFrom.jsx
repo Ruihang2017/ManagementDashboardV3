@@ -38,7 +38,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useQuery, useMutation } from '@apollo/client';
-import { UPDATE_TASK, CREATE_TASK } from '@utils/mutations';
+import { UPDATE_TASK, CREATE_TASK, DELETE_TASK } from '@utils/mutations';
 import { TiUserAddOutline } from "react-icons/ti";
 
 import { TodoTable } from "./table/ToDoTable"
@@ -50,6 +50,7 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
 
     const [UpdateTask, { UpdateTaskError }] = useMutation(UPDATE_TASK);
     const [CreateTask, { CreateTaskError }] = useMutation(CREATE_TASK);
+    const [DeleteTask, { DeleteTaskError }] = useMutation(DELETE_TASK);
 
     const [startDate, setStartDate] = useState(new Date());
     const [completeDate, setCompleteDate] = useState(new Date());
@@ -163,6 +164,27 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
         }
     }
 
+    const deleteTask = async () => {
+        const variables = {
+            taskId: selectedTask.taskID,
+        }
+        console.log(variables);
+
+        try {
+            const { data } = await DeleteTask({
+                variables: variables
+            });
+            console.log(data);
+            if (data.deleteTask) {
+                setTaskData(taskData.filter(task => {
+                    return task.taskID !== selectedTask.taskID
+                }))
+            }
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     return (
 
@@ -319,14 +341,38 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
                             updateTask(task);
                             disclosure.onClose();
                         }}
-
+                        width="100px"
                         colorScheme='blue' mr={3}>
                         Save
                     </Button>
-                    <Button onClick={disclosure.onClose}>Cancel</Button>
+                    <Button
+                        onClick={disclosure.onClose}
+                        width="100px"
+                    >Cancel</Button>
+                    <Button
+                        colorScheme='red'
+                        variant='outline'
+                        mt={{ base: "0px", md: "0", }}
+                        _hover={{ bg: "whiteAlpha.100" }}
+                        _focus={{ bg: "transparent" }}
+                        _active={{ bg: "transparent" }}
+                        p='15px 20px'
+                        fontSize='sm'
+                        h='40px'
+                        fontWeight='500'
+                        ml={3}
+                        width="100px"
+                        // ms='auto'
+                        onClick={() => {
+                            deleteTask();
+                            disclosure.onClose();
+                        }}
+                    >
+                        Delete
+                    </Button>
                 </HStack>
             </Stack>
 
-        </Container>
+        </Container >
     )
 }

@@ -48,6 +48,8 @@ export const TodoTable = (props) => {
         description: "Task description",
         employees: [],
     });
+    console.log(taskEmployees);
+    console.log(props.taskEmployees);
 
 
     useEffect(() => {
@@ -57,6 +59,11 @@ export const TodoTable = (props) => {
         })
         // console.log(todos);
     }, [todos]);
+
+    useEffect(() => {
+        setTaskEmployees(props.taskEmployees);
+        // console.log(todos);
+    }, [props.taskEmployees]);
 
     const addToDo = async (_data) => {
 

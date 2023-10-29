@@ -185,7 +185,7 @@ export default function Forum() {
                             addComment={addComment}
                             commentBlocks={
                                 <Box>
-                                    {thought.comments.reverse().map(comment => {
+                                    {[...thought.comments].reverse().map(comment => {
                                         return (<Comment
                                             key={comment.commentID}
                                             avatar={comment.EmployeeID.avatarURI}

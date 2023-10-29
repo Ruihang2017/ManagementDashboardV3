@@ -53,7 +53,7 @@ export const TaskTable = (props) => {
         EmployeeIDs: [],
         todos: []
     });
-    // console.log(taskData);
+    console.log(taskData);
 
     // const [taskData, setTaskData] = useState(taskDataInput);
     // console.log(employeesProfileInfo);
@@ -106,7 +106,7 @@ export const TaskTable = (props) => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {taskData.map((task) => (
+                        {[...taskData].reverse().map((task) => (
                             <TaskTableRow key={task.taskID}
                                 task={task}
                                 employeesProfileInfo={employeesProfileInfo}
