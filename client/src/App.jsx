@@ -15,7 +15,9 @@ import {
   Box,
   extendTheme,
   Flex,
-  SimpleGrid
+  SimpleGrid,
+  Grid,
+  GridItem
 } from '@chakra-ui/react'
 
 
@@ -64,13 +66,24 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
+
 function App() {
   return (
     <ApolloProvider client={client}>
       <ChakraProvider theme={initialTheme}>
-        <Box display={{ sm: "flex" }}>
-          <Sidebar />
-          <Box flex="1">
+        <Box
+        >
+          <Box
+            position={{ sm: "fixed" }}
+          >
+            <Sidebar />
+          </Box>
+
+          <Box
+            width={"100%"}
+            pl={{ sm: "300px" }}
+          >
             <Outlet />
           </Box>
         </Box>

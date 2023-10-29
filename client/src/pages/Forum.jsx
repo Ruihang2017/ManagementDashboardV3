@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
+import { Navigate } from 'react-router-dom';
 
 // Assets
 import postImage from "@assets/img/profile/postImage.png";

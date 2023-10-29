@@ -9,7 +9,9 @@ import Analytics from './pages/Analytics.jsx'
 import Setting from './pages/Setting'
 import Forum from './pages/Forum'
 import Task from './pages/Task'
+import SignIn from './pages/SignInCentered.jsx'
 import SignUp from './pages/SignUpCentered.jsx'
+
 import Settings from './pages/settings'
 
 
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: '/settings',
         element: <Settings />
+      },
+      {
+        path: '/signin',
+        element: <SignIn />
       }
     ]
   }
