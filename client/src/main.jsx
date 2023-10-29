@@ -10,6 +10,7 @@ import Setting from './pages/Setting'
 import Forum from './pages/Forum'
 import Task from './pages/Task'
 import SignUp from './pages/SignUpCentered.jsx'
+import Settings from './pages/settings'
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: '/saved',
         element: <SavedBooks />
+      },
+      {
+        path: '/settings',
+        element: <Settings />
       }
     ]
   }

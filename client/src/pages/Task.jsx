@@ -46,25 +46,6 @@ export default function Task() {
     const { loading: loadingQueryEmployeesProfileInfo, data: dataQueryEmployeesProfileInfo } = useQuery(QUERY_EMPLOYEES_PROFILE_INFO);
     const employeesProfileInfo = dataQueryEmployeesProfileInfo?.employees || [];
 
-    // const [taskData, setTaskData] = useState(tasks);
-
-    // useEffect(() => {
-    //     setTaskData(tasks)
-    //     console.log(tasks);
-    // }, [tasks]);
-
-    // //  QUERY_TASKS data 
-    // const { loading, data } = useQuery(QUERY_TASKS);
-
-    // const tasks = data?.tasks || [];
-
-    // const [taskData, setTaskData] = useState(tasks);
-
-    // useEffect(() => {
-    //     setTaskData(tasks)
-    // }, [tasks]);
-
-
 
     const isMobile = useBreakpointValue({
         base: true,

@@ -64,7 +64,11 @@ export default function Stories(props) {
 
           <Button
             bg='transparent' variant='no-hover' fontWeight='700' display='flex' h='max-content'
-            w='max-content' minW='max-content' boxShadow='unset' flexDirection='column'>
+            w='max-content' minW='max-content' boxShadow='unset' flexDirection='column'
+            onClick={() => {
+              props.disclosure.onOpen();
+            }}
+          >
             <Flex mx='auto' h='max-content' w='max-content' p='3px'
               borderRadius='50%' bg='linear-gradient(179.78deg, #7A64FF 0.23%, #FF508B 66.58%, #FD6D53 99.75%, #FD6D53 99.75%);                            '>
               <Flex borderRadius='50px' align='center' justify='center' bg={bgAdd} w='54px' h='54px'>

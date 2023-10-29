@@ -3,7 +3,10 @@ import React from "react";
 import {
     Flex, Text, useColorModeValue, Box,
     useBreakpointValue,
+    useDisclosure,
 } from "@chakra-ui/react";
+import { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 
 // Assets
 import postImage from "@assets/img/profile/postImage.png";
@@ -18,11 +21,11 @@ import Post from "./forum/components/Post";
 import Filter from "./forum/components/Filter";
 import Comment from "@components/dataDisplay/Comment";
 import { Stack } from "react-bootstrap";
-
-import { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_THOUGHTS, QUERY_EMPLOYEES_PROFILE_INFO, QUERY_EMPLOYEES, QUERY_ME } from '@utils/queries';
+import { ThoughtModal } from "@components/modal/ThoughtModal";
 import Auth from '@utils/auth';
+import { QUERY_THOUGHTS, QUERY_EMPLOYEES_PROFILE_INFO, QUERY_EMPLOYEES, QUERY_ME } from '@utils/queries';
+import { CREATE_THOUGHT } from '@utils/mutations';
+import { v4 as uuidv4 } from 'uuid';
 
 
 export default function Forum() {
@@ -32,10 +35,18 @@ export default function Forum() {
         return <Navigate to="/signup" />;
     }
 
+    //  CREATE_THOUGHT  
+    const [createThought, { createThoughtError }] = useMutation(CREATE_THOUGHT, {
+        refetchQueries: [
+            QUERY_THOUGHTS,
+            'thoughts'
+        ]
+    });
+
     //  QUERY_ME  
     const { loading: loadingQueryMe, data: dataQueryMe } = useQuery(QUERY_ME);
     const me = dataQueryMe?.me || [];
-    console.log(me);
+    // console.log(me);
 
     //  QUERY_EMPLOYEES_PROFILE_INFO  
     const { loading: loadingQueryEmployeesProfileInfo, data: dataQueryEmployeesProfileInfo } = useQuery(QUERY_EMPLOYEES_PROFILE_INFO);
@@ -63,8 +74,37 @@ export default function Forum() {
         };
     });
 
-    console.log(thoughtData);
+    // modal disclosure
+    const disclosure = useDisclosure()
 
+    // console.log(thoughtData);
+
+    const addAThought = async (data) => {
+        // console.log(data);
+        const variables = {
+            thought: {
+                EmployeeID: me.employeeID,
+                description: data.description,
+                title: data.title,
+                thoughtID: uuidv4()
+            }
+        }
+        // console.log(variables);
+
+        try {
+            const { data } = await createThought({
+                variables: variables
+            });
+            console.log(data);
+            // setTaskData([...taskData, data.createTask]);
+            // setEmptyTask({
+            //     ...emptyTask,
+            //     taskID: uuidv4()
+            // })
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     // Chakra color mode
     const textColor = useColorModeValue("gray.700", "white");
@@ -84,13 +124,14 @@ export default function Forum() {
         <Flex bgColor={paleGray} direction={{ base: "column", xl: "row" }} px={5} pt={{ base: "130px", md: "80px", xl: "80px" }}>
             <Flex direction='column' mb={{ base: "20px", xl: "unset" }} width={{ base: "25%", sm: "35%", md: "65%", xl: "100%", "2xl": "95%" }}>
 
-                <Stories mb='50px' thoughts={thoughts} employeesprofileinfo={employeesProfileInfo} />
+                <Stories mb='50px' thoughts={thoughts} employeesprofileinfo={employeesProfileInfo}
+                    disclosure={disclosure} />
                 <Flex mb='20px'>
                     <Text me='auto' ms='20px' fontSize='2xl' fontWeight='700' color={textColor}>
                         Forum
                     </Text>
                 </Flex>
-                {thoughtData.map((thought) => {
+                {thoughtData.reverse().map((thought) => {
                     return (
                         <Post
                             key={thought.thoughtID}
@@ -106,7 +147,7 @@ export default function Forum() {
                             thoughtTitle={thought.title}
                             commentBlocks={
                                 <Box>
-                                    {thought.comments.map(comment => {
+                                    {thought.comments.reverse().map(comment => {
                                         return (<Comment
                                             key={comment.commentID}
                                             avatar={comment.EmployeeID.avatarURI}
@@ -125,6 +166,7 @@ export default function Forum() {
             </Flex>
             <VSeparator mx='20px' bg={paleGray} display={{ base: "none", xl: "flex" }} />
             {/* <Trending w={{ base: "100%", xl: "500px", "2xl": "400px" }} maxH={{ base: "100%", xl: "1170px", "2xl": "100%" }} /> */}
+            <ThoughtModal disclosure={disclosure} addAThought={addAThought} />
         </Flex>
     );
 }
