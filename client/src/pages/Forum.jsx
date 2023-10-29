@@ -24,7 +24,7 @@ import { Stack } from "react-bootstrap";
 import { ThoughtModal } from "@components/modal/ThoughtModal";
 import Auth from '@utils/auth';
 import { QUERY_THOUGHTS, QUERY_EMPLOYEES_PROFILE_INFO, QUERY_EMPLOYEES, QUERY_ME } from '@utils/queries';
-import { CREATE_THOUGHT } from '@utils/mutations';
+import { CREATE_THOUGHT, CREATE_COMMENT } from '@utils/mutations';
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -34,6 +34,14 @@ export default function Forum() {
         // Alert("Log in or sign up");
         return <Navigate to="/signup" />;
     }
+
+    //  CREATE_COMMENT  
+    const [createComment, { createCommentError }] = useMutation(CREATE_COMMENT, {
+        refetchQueries: [
+            QUERY_THOUGHTS,
+            'thoughts'
+        ]
+    });
 
     //  CREATE_THOUGHT  
     const [createThought, { createThoughtError }] = useMutation(CREATE_THOUGHT, {
@@ -78,7 +86,12 @@ export default function Forum() {
     const disclosure = useDisclosure()
 
     // console.log(thoughtData);
+    // Chakra color mode
+    const textColor = useColorModeValue("gray.700", "white");
+    const paleGray = useColorModeValue("secondaryGray.400", "whiteAlpha.100");
+    const white = useColorModeValue('white', 'navy.900');
 
+    // addAThought
     const addAThought = async (data) => {
         // console.log(data);
         const variables = {
@@ -95,7 +108,7 @@ export default function Forum() {
             const { data } = await createThought({
                 variables: variables
             });
-            console.log(data);
+            // console.log(data);
             // setTaskData([...taskData, data.createTask]);
             // setEmptyTask({
             //     ...emptyTask,
@@ -106,10 +119,32 @@ export default function Forum() {
         }
     }
 
-    // Chakra color mode
-    const textColor = useColorModeValue("gray.700", "white");
-    const paleGray = useColorModeValue("secondaryGray.400", "whiteAlpha.100");
-    const white = useColorModeValue('white', 'navy.900');
+    // addComment
+    const addComment = async (data) => {
+        const variables = {
+            thoughtId: data.thoughtID,
+            comment: {
+                EmployeeID: me.employeeID,
+                commentContent: data.commentContent,
+                commentID: uuidv4()
+            }
+        }
+        // console.log(variables);
+
+        try {
+            const { data } = await createComment({
+                variables: variables
+            });
+            console.log(data);
+            // setTaskData([...taskData, data.createTask]);
+            // setEmptyTask({
+            //     ...emptyTask,
+            //     taskID: uuidv4()
+            // })
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     // const isMobile = useBreakpointValue({
     //     base: true,
@@ -145,6 +180,8 @@ export default function Forum() {
                             you={me.avatarURI} my="10"
                             thoughtData={thought.description}
                             thoughtTitle={thought.title}
+                            thoughtID={thought.thoughtID}
+                            addComment={addComment}
                             commentBlocks={
                                 <Box>
                                     {thought.comments.reverse().map(comment => {

@@ -22,6 +22,7 @@ import {
   MdOutlineAttachment,
   MdOutlineTagFaces,
   MdImage,
+  MdSend,
 } from "react-icons/md";
 
 // Custom @components
@@ -32,6 +33,7 @@ import { HSeparator } from "@components/separator/Separator";
 import React from "react";
 import SeeStory from "@components/actions/SeeStory";
 import TransparentMenu from "@components/menu/TransparentMenu";
+import { useState, useEffect } from 'react';
 
 export default function Post(props) {
   const {
@@ -47,10 +49,14 @@ export default function Post(props) {
     you,
     thoughtData,
     thoughtTitle,
+    thoughtID,
+    addComment,
     ...rest
   } = props;
   // Chakra color mode
   const textColor = useColorModeValue("gray.700", "white");
+
+  const [comment, setComment] = useState("");
 
   return (
     // <CardWhite>
@@ -194,10 +200,13 @@ export default function Post(props) {
               variant='social'
               placeholder='Write your comment...'
               _focus={{ borderColor: "blue.500" }}
+              onChange={(event) => {
+                setComment(event.target.value);
+              }}
             />
             <Box position='absolute' right='0px'>
               {" "}
-              <IconButton me='2px' px='0px' variant='no-hover' bg='transparent'>
+              {/* <IconButton me='2px' px='0px' variant='no-hover' bg='transparent'>
                 <Icon
                   as={MdOutlineAttachment}
                   h='20px'
@@ -205,23 +214,29 @@ export default function Post(props) {
                   color='secondaryGray.700'
                   transform='rotate(270deg)'
                 />
-              </IconButton>
-              <IconButton me='2px' px='0px' variant='no-hover' bg='transparent'>
+              </IconButton> */}
+              <IconButton me='2px' px='0px' variant='no-hover' bg='transparent'
+                onClick={() => {
+                  addComment({
+                    thoughtID: thoughtID,
+                    commentContent: comment,
+                  });
+                }}>
                 <Icon
-                  as={MdOutlineTagFaces}
+                  as={MdSend}
                   h='20px'
                   w='20px'
                   color='secondaryGray.700'
                 />
               </IconButton>
-              <IconButton me='2px' px='0px' variant='no-hover' bg='transparent'>
+              {/* <IconButton me='2px' px='0px' variant='no-hover' bg='transparent'>
                 <Icon
                   as={MdImage}
                   h='20px'
                   w='20px'
                   color='secondaryGray.700'
                 />
-              </IconButton>
+              </IconButton> */}
             </Box>
           </Flex>
         </Box>
