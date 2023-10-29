@@ -9,31 +9,102 @@ import Profile from "./components/Profile";
 import Sessions from "./components/Sessions";
 import Socials from "./components/Socials";
 import TwoFactor from "./components/TwoFactor";
+
+//react
 import React from "react";
+import { Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
+//apollo
+import { useQuery, useMutation } from '@apollo/client';
+
+//utils
+import Auth from '@utils/auth';
+import { QUERY_ME } from '@utils/queries';
+import { UPDATE_EMPLOYEE, DELETE_EMPLOYEE } from '@utils/mutations';
+
 
 export default function Settings() {
+
   // Chakra Color Mode
+  if (!Auth.loggedIn()) {
+    // Alert("Log in or sign up");
+    return <Navigate to="/signup" />;
+  }
+
+  //  QUERY_ME  
+  const { loading: loadingQueryMe, data: dataQueryMe } = useQuery(QUERY_ME);
+  const userData = dataQueryMe?.me || [];
+
+  //  UPDATE_EMPLOYEE  
+  const [UpdateEmployee, { UpdateEmployeeError }] = useMutation(UPDATE_EMPLOYEE, {
+    refetchQueries: [
+      QUERY_ME,
+      'me'
+    ]
+  });
+
+  //  DELETE_EMPLOYEE  
+  const [DeleteEmployee, { DeleteEmployeeError }] = useMutation(DELETE_EMPLOYEE);
+
+  console.log(userData);
+
+  // addAThought
+  const updateEmployee = async (data) => {
+    // console.log(data);
+    const variables = {
+      employee: {
+        email: data.email,
+        employeeID: userData.employeeID,
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        password: userData.password,
+        roleID: userData.roleID
+      }
+    }
+    try {
+      const { data } = await UpdateEmployee({
+        variables: variables
+      });
+      Auth.login(data.updateEmployee.token);
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const deleteEmployee = async (data) => {
+    const variables = {
+      employeeId: userData.employeeID
+    }
+    try {
+      const { data } = await DeleteEmployee({
+        variables: variables
+      });
+
+      Auth.logout();
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+
   return (
-    <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+    <Box
+      pt={{ base: "130px", md: "80px", xl: "80px" }}
+      px="5"
+    >
       {/* Main Fields */}
       <SimpleGrid
         mb='20px'
-        columns={{ sm: 1, md: 1, lg: 2 }}
+        columns={{ sm: 1, md: 1, lg: 1 }}
         spacing={{ base: "20px", xl: "20px" }}>
-        {/* Column Left */}
+
         <Flex direction='column'>
-          <Profile />
-          <Information />
-          <Socials />
-          <Password />
-        </Flex>
-        {/* Column Right */}
-        <Flex direction='column'>
-          <TwoFactor mb='20px' />
-          <Newsletter mb='20px' />
-          <Sessions mb='20px' />
-          <Connected mb='20px' />
-          <Delete />
+          <Profile userData={userData} />
+          <Information userData={userData} updateEmployee={updateEmployee} />
+          <Delete deleteEmployee={deleteEmployee} />
         </Flex>
       </SimpleGrid>
     </Box>

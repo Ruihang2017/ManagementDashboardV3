@@ -120,7 +120,7 @@ const typeDefs = `
         login(email: String!, password: String!): Auth
 
         createEmployee(employee: EmployeeInput!): Auth
-        updateEmployee(employee: EmployeeInput!): Employee
+        updateEmployee(employee: EmployeeInput!): Auth
         deleteEmployee(employeeID: String!): Boolean
 
         createThought(thought: ThoughtInput!): Thought

@@ -10,7 +10,7 @@ import Card from "@components/card/Card";
 import React from "react";
 
 export default function Delete(props) {
-  const { ...rest } = props;
+  const { deleteEmployee, ...rest } = props;
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "secondaryGray.600";
   // Chakra Color Mode
@@ -41,7 +41,8 @@ export default function Delete(props) {
           fontSize='sm'
           h='44px'
           fontWeight='500'
-          ms='auto'>
+          ms='auto'
+          onClick={deleteEmployee}>
           Delete account
         </Button>
       </LightMode>

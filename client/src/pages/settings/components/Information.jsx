@@ -5,14 +5,21 @@ import {
   SimpleGrid,
   Text,
   useColorModeValue,
+  Button,
 } from "@chakra-ui/react";
 import Card from "@components/card/Card";
 import InputField from "@components/fields/InputField";
 import TextField from "@components/fields/TextField";
 import React from "react";
+import { useState, useEffect } from 'react';
 
 export default function Information(props) {
-  const { ...rest } = props;
+  const { userData, updateEmployee, ...rest } = props;
+
+  const [formData, setFormData] = useState({
+    email: userData.email,
+    // avatarURI: userData.avatarURI
+  })
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "secondaryGray.600";
   // Chakra Color Mode
@@ -28,42 +35,42 @@ export default function Information(props) {
           </Text>
         </Flex>
         <SimpleGrid
-          columns={{ sm: 1, md: 2 }}
+          columns={{ sm: 1, md: 1 }}
           spacing={{ base: "20px", xl: "20px" }}>
-          <InputField
+          {/* <InputField
             mb='0px'
             me='30px'
             id='username'
             label='Username'
             placeholder='@simmmple.web'
-          />
+          /> */}
           <InputField
-            mb='0px'
+            mb='30px'
             id='email'
             label='Email Address'
             placeholder='mail@simmmple.com'
-          />
-          <InputField
-            mb='20px'
-            me='30px'
-            id='first_name'
-            label='First Name'
-            placeholder='John'
-          />
-          <InputField
-            mb='20px'
-            id='last_name'
-            label='Last Name'
-            placeholder='William'
+            onChange={(event) => {
+              setFormData({
+                ...formData,
+                email: event.target.value
+              })
+            }}
           />
         </SimpleGrid>
-        <InputField id='job' label='Job' placeholder='Web Developer' />
         <TextField
           id='about'
           label='About Me'
           h='100px'
           placeholder='Tell something about yourself in 150 characters!'
         />
+        <Button variant='brand' minW='183px' fontSize='sm' fontWeight='500' ms='auto'
+          onClick={() => {
+            updateEmployee(formData);
+            // createTask();
+            // creatTaskDisclosure.onOpen();
+          }}>
+          Update Information
+        </Button>
       </Card>
     </FormControl>
   );

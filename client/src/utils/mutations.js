@@ -39,16 +39,19 @@ export const LOGIN = gql`
 
 
 export const UPDATE_EMPLOYEE = gql`
-    mutation UpdateEmployee($employee: EmployeeInput!) {
+    mutation Mutation($employee: EmployeeInput!) {
         updateEmployee(employee: $employee) {
-            _id
-            employeeID
-            firstname
-            lastname
-            email
-            password
-            roleID
-            avatarURI
+            Employee {
+                _id
+                employeeID
+                firstname
+                lastname
+                email
+                password
+                roleID
+                avatarURI
+            }
+            token
         }
     }
 `;

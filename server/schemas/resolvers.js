@@ -76,6 +76,7 @@ const resolvers = {
         updateEmployee: async (parent, { employee }) => {
             try {
                 // const employeeID = employee.employeeID;
+                console.log(1);
                 const updatedEmployee = await Employee.findOneAndUpdate(
                     { employeeID: employee.employeeID },
                     { $set: employee },
@@ -84,7 +85,15 @@ const resolvers = {
                         runValidators: true,
                     }
                 );
-                return updatedEmployee;
+                console.log(2);
+                console.log(updatedEmployee);
+
+                const token = signToken(updatedEmployee);
+                console.log(3);
+
+                return { token, updatedEmployee };
+
+                // return updatedEmployee;
 
             } catch (error) {
                 throw error;
