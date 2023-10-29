@@ -21,12 +21,21 @@ import { Stack } from "react-bootstrap";
 
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-
-import { QUERY_THOUGHTS, QUERY_EMPLOYEES_PROFILE_INFO, QUERY_EMPLOYEES } from '@utils/queries';
+import { QUERY_THOUGHTS, QUERY_EMPLOYEES_PROFILE_INFO, QUERY_EMPLOYEES, QUERY_ME } from '@utils/queries';
+import Auth from '@utils/auth';
 
 
 export default function Forum() {
 
+    if (!Auth.loggedIn()) {
+        // Alert("Log in or sign up");
+        return <Navigate to="/signup" />;
+    }
+
+    //  QUERY_ME  
+    const { loading: loadingQueryMe, data: dataQueryMe } = useQuery(QUERY_ME);
+    const me = dataQueryMe?.me || [];
+    console.log(me);
 
     //  QUERY_EMPLOYEES_PROFILE_INFO  
     const { loading: loadingQueryEmployeesProfileInfo, data: dataQueryEmployeesProfileInfo } = useQuery(QUERY_EMPLOYEES_PROFILE_INFO);
@@ -55,9 +64,7 @@ export default function Forum() {
     });
 
     console.log(thoughtData);
-    // useEffect(() => {
-    //     // console.log(thoughtData);
-    // }, [thoughtData]);
+
 
     // Chakra color mode
     const textColor = useColorModeValue("gray.700", "white");
@@ -94,7 +101,7 @@ export default function Forum() {
                             username={"@" + thought.EmployeeID.firstname + "." + thought.EmployeeID.lastname}
                             image={postImage}
                             shares='156' saves='20'
-                            you={avatar4} my="10"
+                            you={me.avatarURI} my="10"
                             thoughtData={thought.description}
                             thoughtTitle={thought.title}
                             commentBlocks={

@@ -30,7 +30,82 @@ import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
 
+import { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
+import { CREATE_EMPLOYEE } from '@utils/mutations';
+import { v4 as uuidv4 } from 'uuid';
+
+import Auth from '@utils/auth';
+
+
 function SignUp() {
+
+  const [CreateEmployee, { error, data }] = useMutation(CREATE_EMPLOYEE);
+
+  const [userFormData, setUserFormData] = useState(
+    {
+      email: '',
+      employeeID: uuidv4(),
+      firstname: '',
+      lastname: '',
+      password: '',
+      roleID: "101"
+    });
+  const [checkBoxPolicy, setCheckBoxPolicy] = useState(false);
+
+
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const createEmployee = async (event) => {
+    event.preventDefault();
+
+    try {
+      const variables = {
+        employee: userFormData
+      }
+
+      const { data } = await CreateEmployee({
+        variables: variables,
+      });
+
+      // reset the user uuid
+      setUserFormData({
+        ...userFormData,
+        employeeID: uuidv4(),
+      })
+      // console.log(data);
+      Auth.login(data.createEmployee.token);
+
+
+    } catch (err) {
+      console.error(err);
+      setShowAlert(true);
+    }
+
+    // try {
+    //   const { data } = await addUser({
+    //     variables: { ...userFormData },
+    //   });
+    //   Auth.login(data.createUser.token);
+
+    // } catch (err) {
+    //   console.error(err);
+    //   setShowAlert(true);
+    // }
+
+    // setUserFormData({
+    //   username: '',
+    //   email: '',
+    //   password: '',
+    // });
+
+  };
+
+
   // Chakra color mode
   const textColor = useColorModeValue('navy.700', 'white');
   const textColorSecondary = 'gray.400';
@@ -84,6 +159,8 @@ function SignUp() {
                 </FormLabel>
                 <Input
                   // isRequired={true}
+                  name='firstname'
+                  onChange={handleInputChange}
                   fontSize="sm" ms={{ base: '0px', md: '4px' }} placeholder="First name" variant="auth"
                   mb="24px" size="lg" />
               </Flex>
@@ -93,6 +170,8 @@ function SignUp() {
                 </FormLabel>
                 <Input
                   // isRequired={true}
+                  name='lastname'
+                  onChange={handleInputChange}
                   variant="auth" fontSize="sm" placeholder="Last name" mb="24px" size="lg" />
               </Flex>
             </SimpleGrid>
@@ -101,6 +180,8 @@ function SignUp() {
             </FormLabel>
             <Input
               // isRequired={true}
+              name='email'
+              onChange={handleInputChange}
               variant="auth" fontSize="sm" type="email" placeholder="mail@simmmple.com" mb="24px" size="lg" />
             <FormLabel ms="4px" fontSize="sm" fontWeight="500"
               // isRequired={true}
@@ -110,6 +191,8 @@ function SignUp() {
             <InputGroup size="md">
               <Input
                 // isRequired={true}
+                name='password'
+                onChange={handleInputChange}
                 variant="auth" fontSize="sm" ms={{ base: '0px', md: '4px' }} placeholder="Min. 8 characters"
                 mb="24px" size="lg" type={show ? 'text' : 'password'} />
               <InputRightElement display="flex" alignItems="center" mt="4px">
@@ -119,7 +202,12 @@ function SignUp() {
             </InputGroup>
             <Flex justifyContent="space-between" align="center" mb="24px">
               <FormControl display="flex" alignItems="start">
-                <Checkbox id="remember-login" colorScheme="brand" me="10px" mt="3px" />
+                <Checkbox id="remember-login" colorScheme="brand" me="10px" mt="3px"
+                  isChecked={checkBoxPolicy}
+                  onChange={(event) => {
+                    setCheckBoxPolicy(!checkBoxPolicy);
+                  }}
+                />
                 <FormLabel htmlFor="remember-login" mb="0" fontWeight="normal" color={textColor} fontSize="sm">
                   By creating an account means you agree to the{' '}
                   <Link href="https://simmmple.com/terms-of-service" fontWeight="500">
@@ -132,7 +220,9 @@ function SignUp() {
                 </FormLabel>
               </FormControl>
             </Flex>
-            <Button variant="brand" fontSize="14px" fontWeight="500" w="100%" h="50" mb="24px">
+            <Button variant="brand" fontSize="14px" fontWeight="500" w="100%" h="50" mb="24px"
+              isDisabled={!checkBoxPolicy}
+              onClick={createEmployee}>
               Create my account
             </Button>
           </FormControl>

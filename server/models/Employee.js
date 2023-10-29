@@ -41,18 +41,6 @@ const employeeSchema = new Schema(
       type: String,
       default: "https://i.pravatar.cc/300",
     },
-    // thoughtIDs: [{
-    //   type: String,
-    //   ref: 'Thought',
-    // }],
-    // taskIDs: [{
-    //   type: String,
-    //   ref: 'Task',
-    // }],
-    // todoIDs: [ToDo.schema],
-    // commentIDs: [Comment.schema],
-
-    // set savedBooks to be an array of data that adheres to the bookSchema
   },
   // set this to use virtual below
   {

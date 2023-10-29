@@ -22,8 +22,35 @@ const resolvers = {
         task: async (parent, { taskID }) => {
             return Task.findOne({ taskID });
         },
+        me: async (parent, args, context) => {
+            console.log("[Query] me");
+            if (context.user) {
+                return Employee.findOne({ email: context.user.email });
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
     },
     Mutation: {
+        login: async (parent, { email, password }) => {
+            console.log("login");
+            const employee = await Employee.findOne({ email });
+            console.log(employee);
+
+            if (!employee) {
+                throw AuthenticationError;
+            }
+
+            const correctPw = await employee.isCorrectPassword(password);
+
+            if (!correctPw) {
+                throw AuthenticationError;
+            }
+
+            const token = signToken(employee);
+
+            return { token, employee };
+        },
+
         createEmployee: async (parent, { employee }) => {
             try {
                 const roleID = employee.roleID;
@@ -39,11 +66,9 @@ const resolvers = {
                 }
 
                 const newEmployee = await Employee.create({ ...employee });
-                // // const token = signToken(user);
-                // // return { token, user };
-                console.log(newEmployee);
+                const token = signToken(newEmployee);
 
-                return newEmployee;
+                return { token, newEmployee };
             } catch (error) {
                 throw error;
             }

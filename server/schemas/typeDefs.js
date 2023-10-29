@@ -101,6 +101,11 @@ const typeDefs = `
         EmployeeID:String
     }
 
+    type Auth {
+        token: ID!
+        Employee: Employee
+    }
+
     type Query {
         tasks: [Task]
         employees: [Employee]
@@ -108,10 +113,13 @@ const typeDefs = `
         thoughts: [Thought]
         task(taskID: String!): Task
         employee(employeeID: String!): Employee
+        me: Employee
     }
 
     type Mutation {
-        createEmployee(employee: EmployeeInput!): Employee
+        login(email: String!, password: String!): Auth
+
+        createEmployee(employee: EmployeeInput!): Auth
         updateEmployee(employee: EmployeeInput!): Employee
         deleteEmployee(employeeID: String!): Boolean
 

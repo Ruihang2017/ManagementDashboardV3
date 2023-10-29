@@ -166,18 +166,13 @@ export const QUERY_ME = gql`
     query Me {
         me {
             _id
-            username
+            employeeID
+            firstname
+            lastname
             email
             password
-            savedBooks {
-                _id
-                authors
-                description
-                bookId
-                image
-                link
-                title
-            }
+            roleID
+            avatarURI
         }
     }
 `;
