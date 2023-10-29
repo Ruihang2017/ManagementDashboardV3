@@ -9,6 +9,7 @@ import Analytics from './pages/Analytics.jsx'
 import Setting from './pages/Setting'
 import Forum from './pages/Forum'
 import Task from './pages/Task'
+import SignUp from './pages/SignUpCentered.jsx'
 
 
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <SignUp />
+      },
+      {
+        path: '/forum',
         element: <Forum />
       },
       {
