@@ -9,6 +9,7 @@ import {
   Input,
   Text,
   color,
+  Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
 // Assets
@@ -92,11 +93,11 @@ export default function Post(props) {
             }
           />
         </Flex>
-        <HStack>
+        <Stack>
           <Text fontSize='md' px="1" color={textColor} fontWeight='600'>{"[" + thoughtTitle + "]"}</Text>
 
           <Text fontSize='md' px="1" color={textColor} fontWeight='600'>{thoughtData}</Text>
-        </HStack>
+        </Stack>
 
       </Box>
 

@@ -42,7 +42,9 @@ export default function Delete(props) {
           h='44px'
           fontWeight='500'
           ms='auto'
-          onClick={deleteEmployee}>
+          isDisabled={true}
+        // onClick={deleteEmployee}
+        >
           Delete account
         </Button>
       </LightMode>
