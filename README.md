@@ -21,8 +21,11 @@ The application allows users to create, read, update, and delete tasks, todos wi
 
 ## Screenshots
 ![Platform Screenshot](./client/src/assets/screenshot/Screenshot%202023-10-30%20230326.png)
+
 ![Platform Screenshot](./client/src/assets/screenshot/Screenshot%202023-10-30%20230349.png)
+
 ![Platform Screenshot](./client/src/assets/screenshot/Screenshot%202023-10-30%20230437.png)
+
 ![Platform Screenshot](./client/src/assets/screenshot/Screenshot%202023-10-30%20230129.png)
 
 ## Features
