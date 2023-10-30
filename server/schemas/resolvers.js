@@ -119,6 +119,7 @@ const resolvers = {
         },
         createThought: async (parent, { thought }) => {
             try {
+                console.log(thought);
 
                 const newThought = await Thought.create({ ...thought });
                 // const updatedEmployee = await Employee.findOneAndUpdate(

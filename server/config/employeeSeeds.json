@@ -4,7 +4,7 @@
     "firstname": "John",
     "lastname": "Smith",
     "email": "john.smith@example.com",
-    "password": "password123",
+    "password": "123456",
     "roleID": "101"
   },
   {
@@ -12,7 +12,7 @@
     "firstname": "Sarah",
     "lastname": "Johnson",
     "email": "sarah.johnson@example.com",
-    "password": "securepass",
+    "password": "123456",
     "roleID": "102"
   },
   {
@@ -20,7 +20,7 @@
     "firstname": "Emily",
     "lastname": "Brown",
     "email": "emily.brown@example.com",
-    "password": "pass123",
+    "password": "123456",
     "roleID": "102"
   },
   {
@@ -28,7 +28,7 @@
     "firstname": "Michael",
     "lastname": "Davis",
     "email": "michael.davis@example.com",
-    "password": "michaelpass",
+    "password": "123456",
     "roleID": "102"
   },
   {
@@ -36,7 +36,7 @@
     "firstname": "Olivia",
     "lastname": "Martinez",
     "email": "olivia.martinez@example.com",
-    "password": "oliviapass",
+    "password": "123456",
     "roleID": "102"
   }
 ]
