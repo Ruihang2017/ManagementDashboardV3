@@ -48,8 +48,8 @@ export const TodoTable = (props) => {
         description: "Task description",
         employees: [],
     });
-    console.log(taskEmployees);
-    console.log(props.taskEmployees);
+    // console.log(taskEmployees);
+    // console.log(props.taskEmployees);
 
 
     useEffect(() => {
@@ -119,7 +119,7 @@ export const TodoTable = (props) => {
 
     // updateToDo
     const updateToDo = async (_data) => {
-        console.log(_data);
+        // console.log(_data);
 
         const variables = {
             taskId: taskID,

@@ -120,7 +120,7 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
 
     // updateToDo
     const updateTask = async (_data) => {
-        console.log(_data);
+        // console.log(_data);
 
         const todos = _data.todos.map(todo => {
             return {
@@ -142,13 +142,13 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
                 todos: todos,
             }
         }
-        console.log(variables);
+        // console.log(variables);
 
         try {
             const { data } = await UpdateTask({
                 variables: variables
             });
-            console.log(data);
+            // console.log(data);
 
             setTask(data.updateTask);
             const newTaskData = taskData.map(task => {
@@ -168,13 +168,13 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
         const variables = {
             taskId: selectedTask.taskID,
         }
-        console.log(variables);
+        // console.log(variables);
 
         try {
             const { data } = await DeleteTask({
                 variables: variables
             });
-            console.log(data);
+            // console.log(data);
             if (data.deleteTask) {
                 setTaskData(taskData.filter(task => {
                     return task.taskID !== selectedTask.taskID
@@ -244,7 +244,7 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
                         onChange={(event) => {
                             if (event.target.checked) {
                                 if (task.todos.find(todo => todo.completed === false)) {
-                                    console.log("There are unfinished todos");
+                                    // console.log("There are unfinished todos");
                                     setShowAlert(true);
                                     return
                                 }

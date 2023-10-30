@@ -44,7 +44,7 @@ const NewToDo = ({ taskEmployees, addToDo, newToDo, SetNewToDo, availableTaskEmp
     }
 
     const removeToDoEmployee = (data) => {
-        console.log(data);
+        // console.log(data);
         const newTaskEmployees = newToDo.employees.filter(employee => employee.employeeID !== data.employeeID);
         SetNewToDo({
             ...newToDo,

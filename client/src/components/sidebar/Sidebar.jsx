@@ -53,7 +53,7 @@ export const Sidebar = () => {
     //  QUERY_ME  
     const { loading: loadingQueryMe, data: dataQueryMe } = useQuery(QUERY_ME);
     const me = dataQueryMe?.me || [];
-    console.log(me);
+    // console.log(me);
     return (
         <Flex
             // pos="sticky"

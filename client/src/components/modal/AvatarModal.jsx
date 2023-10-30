@@ -95,7 +95,7 @@ export const AvatarModal = (props) => {
         }
         return avatarImage;
     })
-    console.log(selectedAvatar);
+    // console.log(selectedAvatar);
 
     return (
         <>

@@ -54,7 +54,7 @@ export default function Settings() {
   // modal disclosure
   const disclosure = useDisclosure()
 
-  console.log(userData);
+  // console.log(userData);
 
   //selectANewAvatar
   const selectANewAvatar = () => {
