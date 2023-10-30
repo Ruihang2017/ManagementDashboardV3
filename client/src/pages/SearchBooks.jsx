@@ -46,7 +46,7 @@ const SearchBooks = () => {
   const [saveBook, { error }] = useMutation(SAVE_BOOK, {
     refetchQueries: [
       QUERY_ME,
-      'me'
+      // 'me'
     ]
   });
 

@@ -44,7 +44,7 @@ export default function Settings() {
   const [UpdateEmployee, { UpdateEmployeeError }] = useMutation(UPDATE_EMPLOYEE, {
     refetchQueries: [
       QUERY_ME,
-      'me'
+      // 'me'
     ]
   });
 

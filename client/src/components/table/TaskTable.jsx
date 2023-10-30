@@ -38,7 +38,7 @@ export const TaskTable = (props) => {
     const [CreateTask, { CreateTaskError }] = useMutation(CREATE_TASK, {
         refetchQueries: [
             QUERY_TASKS,
-            'tasks'
+            // 'tasks'
         ]
     });
     const disclosure = useDisclosure()

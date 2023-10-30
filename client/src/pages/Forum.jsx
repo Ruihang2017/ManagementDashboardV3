@@ -40,7 +40,7 @@ export default function Forum() {
     const [createComment, { createCommentError }] = useMutation(CREATE_COMMENT, {
         refetchQueries: [
             QUERY_THOUGHTS,
-            'thoughts'
+            // 'thoughts'
         ]
     });
 
@@ -48,7 +48,7 @@ export default function Forum() {
     const [createThought, { createThoughtError }] = useMutation(CREATE_THOUGHT, {
         refetchQueries: [
             QUERY_THOUGHTS,
-            'thoughts'
+            // 'thoughts'
         ]
     });
 
@@ -61,7 +61,7 @@ export default function Forum() {
     const { loading: loadingQueryEmployeesProfileInfo, data: dataQueryEmployeesProfileInfo } = useQuery(QUERY_EMPLOYEES_PROFILE_INFO);
     const employeesProfileInfo = dataQueryEmployeesProfileInfo?.employees || [];
 
-    //  QUERY_TASKS  
+    //  QUERY_THOUGHTS  
     const { loading: loadingThoughts, data: dataThoughts } = useQuery(QUERY_THOUGHTS);
     const thoughts = dataThoughts?.thoughts || [];
 
