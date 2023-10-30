@@ -13,7 +13,6 @@ import SignIn from './pages/SignInCentered.jsx'
 import SignUp from './pages/SignUpCentered.jsx'
 
 import Settings from './pages/settings'
-import Newsfeed from './pages/newsfeed'
 
 
 const router = createBrowserRouter([
@@ -53,10 +52,6 @@ const router = createBrowserRouter([
       {
         path: '/signin',
         element: <SignIn />
-      },
-      {
-        path: '/newsfeed',
-        element: <Newsfeed />
       }
     ]
   }

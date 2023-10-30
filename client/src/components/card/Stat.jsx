@@ -34,12 +34,12 @@ export const Stat = (props) => {
                     >
                         {value}
                     </Heading>
-                    <Badge variant="pill" colorScheme={delta.isUpwardsTrend ? 'green' : 'red'}>
+                    {/* <Badge variant="pill" colorScheme={delta.isUpwardsTrend ? 'green' : 'red'}>
                         <HStack spacing="1">
                             <Icon as={delta.isUpwardsTrend ? FiArrowUpRight : FiArrowDownRight} />
                             <Text>{delta.value}</Text>
                         </HStack>
-                    </Badge>
+                    </Badge> */}
                 </HStack>
             </Stack>
         </Box>
