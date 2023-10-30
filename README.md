@@ -57,7 +57,7 @@ The application allows users to create, read, update, and delete tasks, todos wi
 - **API**: GraphQL
 - **User Authentication**: JSON Web Tokens (JWT)
 - **Deployment**: Heroku
-- **UI Styling**: Chakra UI (or your preferred UI library)
+- **UI Styling**: Chakra UI 
 
 ## Getting Started
 
