@@ -38,6 +38,10 @@ import { v4 as uuidv4 } from 'uuid';
 import Auth from '@utils/auth';
 
 
+//asset 
+import avatarSimmmple from "@assets/img/avatars/avatarSimmmple.png";
+
+
 function SignUp() {
 
   const [CreateEmployee, { error, data }] = useMutation(CREATE_EMPLOYEE);
@@ -49,7 +53,8 @@ function SignUp() {
       firstname: '',
       lastname: '',
       password: '',
-      roleID: "101"
+      roleID: "101",
+      avatarURI: avatarSimmmple,
     });
   const [checkBoxPolicy, setCheckBoxPolicy] = useState(false);
 

@@ -1,5 +1,5 @@
 // Chakra imports
-import { Box, Flex, SimpleGrid } from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import Connected from "./components/Connected";
 import Delete from "./components/Delete";
 import Information from "./components/Information";
@@ -22,6 +22,10 @@ import { useQuery, useMutation } from '@apollo/client';
 import Auth from '@utils/auth';
 import { QUERY_ME } from '@utils/queries';
 import { UPDATE_EMPLOYEE, DELETE_EMPLOYEE } from '@utils/mutations';
+
+
+// other components
+import { AvatarModal } from "@components/modal/AvatarModal";
 
 
 export default function Settings() {
@@ -47,7 +51,39 @@ export default function Settings() {
   //  DELETE_EMPLOYEE  
   const [DeleteEmployee, { DeleteEmployeeError }] = useMutation(DELETE_EMPLOYEE);
 
+  // modal disclosure
+  const disclosure = useDisclosure()
+
   console.log(userData);
+
+  //selectANewAvatar
+  const selectANewAvatar = () => {
+    console.log("selectANewAvatar");
+  }
+
+  const setUserAvatar = async (selectedAvatar) => {
+    // console.log(data);
+    const variables = {
+      employee: {
+        email: userData.email,
+        employeeID: userData.employeeID,
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        password: userData.password,
+        roleID: userData.roleID,
+        avatarURI: selectedAvatar,
+      }
+    }
+    try {
+      const { data } = await UpdateEmployee({
+        variables: variables
+      });
+      Auth.reLogin(data.updateEmployee.token);
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   // addAThought
   const updateEmployee = async (data) => {
@@ -102,11 +138,13 @@ export default function Settings() {
         spacing={{ base: "20px", xl: "20px" }}>
 
         <Flex direction='column'>
-          <Profile userData={userData} />
+          <Profile userData={userData} selectANewAvatar={selectANewAvatar} disclosure={disclosure} />
           <Information userData={userData} updateEmployee={updateEmployee} />
           <Delete deleteEmployee={deleteEmployee} />
         </Flex>
       </SimpleGrid>
+      <AvatarModal disclosure={disclosure} setUserAvatar={setUserAvatar} />
+
     </Box>
   );
 }
