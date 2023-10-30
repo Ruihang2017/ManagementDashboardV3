@@ -62,6 +62,7 @@ export const TodoTable = (props) => {
 
     useEffect(() => {
         setTaskEmployees(props.taskEmployees);
+        setAvailableTaskEmployees(props.taskEmployees);
         // console.log(todos);
     }, [props.taskEmployees]);
 
@@ -171,7 +172,8 @@ export const TodoTable = (props) => {
                 <ToDoTableRow key={todo.todoID} todo={todo} taskEmployees={taskEmployees}
                     updateToDo={updateToDo}
                     deleteToDo={deleteToDo}
-                    changeTaskCompleted={props.changeTaskCompleted} />
+                    changeTaskCompleted={props.changeTaskCompleted}
+                    availableTaskEmployees={availableTaskEmployees} />
             ))}
             <NewToDo taskEmployees={taskEmployees} addToDo={addToDo}
                 newToDo={newToDo} SetNewToDo={SetNewToDo}

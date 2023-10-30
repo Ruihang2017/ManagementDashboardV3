@@ -33,6 +33,7 @@ const ToDoTableRow = (props) => {
     // const [todoCompleted, setTodoCompleted] = useState(false);
     const [todo, setTodo] = useState(props.todo);
     const [taskEmployees, setTaskEmployees] = useState(props.taskEmployees);
+
     const [availableTaskEmployees, setAvailableTaskEmployees] = useState(() => {
         return taskEmployees.filter(taskEmployee => {
             if (!todo.EmployeeIDs.find(id => id === taskEmployee.employeeID)) {
@@ -41,19 +42,24 @@ const ToDoTableRow = (props) => {
         });
     });
 
-    // console.log(todo);
-    // console.log(taskEmployees);
-    // console.log(availableTaskEmployees);
+    useEffect(() => {
+        setTaskEmployees(props.taskEmployees);
+    }, [props.taskEmployees]);
+
+    useEffect(() => {
+        setAvailableTaskEmployees(() => {
+            return taskEmployees.filter(taskEmployee => {
+                if (!todo.EmployeeIDs.find(id => id === taskEmployee.employeeID)) {
+                    return taskEmployee
+                }
+            });
+        })
+    }, [taskEmployees]);
 
 
     const [isEdit, setIsEdit] = useState(false);
 
     const textColor = useColorModeValue("gray.700", "white");
-
-
-    // useEffect(() => {
-    //     console.log(todo);
-    // }, [todo]);
 
 
     const addToDoEmployee = (data) => {

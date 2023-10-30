@@ -89,7 +89,7 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
     }
 
     const addTaskEmployee = (data) => {
-        // console.log(data);
+        console.log(data);
         // console.log(task);
 
         setTaskEmployees([...taskEmployees, data]);

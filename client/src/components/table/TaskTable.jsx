@@ -16,6 +16,7 @@ import {
     Thead,
     Tr,
     useDisclosure,
+    useColorModeValue,
 } from '@chakra-ui/react'
 import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 import { useState, useEffect } from 'react';
@@ -30,6 +31,10 @@ import { QUERY_TASKS } from '@utils/queries';
 //   import { members } from './data'
 
 export const TaskTable = (props) => {
+    const textColor = useColorModeValue("gray.700", "white");
+    const paleGray = useColorModeValue("secondaryGray.400", "whiteAlpha.100");
+    const white = useColorModeValue('white', 'navy.900');
+
     // { taskData, employeesProfileInfo }
     const [taskData, setTaskData] = useState(props.taskData);
     const [employeesProfileInfo, setEmployeesProfileInfo] = useState(props.employeesProfileInfo);
