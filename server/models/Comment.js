@@ -7,7 +7,7 @@ const commentSchema = new Schema({
   commentID: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   commentContent: {
     type: String,
