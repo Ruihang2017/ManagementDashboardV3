@@ -475,7 +475,7 @@ export default function Analytics() {
     const paleGray = useColorModeValue("secondaryGray.400", "whiteAlpha.100");
     const white = useColorModeValue('white', 'navy.900');
 
-    if (loadingQueryMe || loadingQueryEmployees || loadingThoughts) {
+    if (loadingQueryMe || loadingQueryEmployees || loadingThoughts || loadingQueryTask) {
         return <div>Loading...</div>;
     }
     return (
