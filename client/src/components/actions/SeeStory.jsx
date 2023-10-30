@@ -42,7 +42,7 @@ export default function SeeStory(props) {
       w='max-content'
       minW='max-content'
       boxShadow='unset'
-      onClick={onOpen}
+      // onClick={onOpen}
       {...rest}>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
