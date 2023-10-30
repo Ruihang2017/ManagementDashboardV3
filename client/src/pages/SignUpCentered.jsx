@@ -69,19 +69,24 @@ function SignUp() {
     event.preventDefault();
 
     try {
+      const newUserFormData = {
+        ...userFormData,
+        employeeID: uuidv4(),
+      }
+
       const variables = {
-        employee: userFormData
+        employee: newUserFormData
       }
 
       const { data } = await CreateEmployee({
         variables: variables,
       });
 
-      // reset the user uuid
-      setUserFormData({
-        ...userFormData,
-        employeeID: uuidv4(),
-      })
+      // // reset the user uuid
+      // setUserFormData({
+      //   ...userFormData,
+      //   employeeID: uuidv4(),
+      // })
       // console.log(data);
       Auth.login(data.createEmployee.token);
 

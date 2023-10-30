@@ -61,7 +61,17 @@ const resolvers = {
                 const existEmployeeID = await Employee.findOne({ employeeID });
                 const existEmail = await Employee.findOne({ email });
 
-                if (!role || existEmployeeID || existEmail) {
+                // if (!role || existEmployeeID || existEmail) {
+                //     throw InputError;
+                // }
+
+                if (existEmployeeID) {
+                    console.warn("existEmployeeID");
+                    throw InputError;
+                }
+
+                if (existEmail) {
+                    console.warn("existEmail");
                     throw InputError;
                 }
 
@@ -76,7 +86,6 @@ const resolvers = {
         updateEmployee: async (parent, { employee }) => {
             try {
                 // const employeeID = employee.employeeID;
-                console.log(1);
                 const updatedEmployee = await Employee.findOneAndUpdate(
                     { employeeID: employee.employeeID },
                     { $set: employee },
@@ -85,11 +94,9 @@ const resolvers = {
                         runValidators: true,
                     }
                 );
-                console.log(2);
                 console.log(updatedEmployee);
 
                 const token = signToken(updatedEmployee);
-                console.log(3);
 
                 return { token, updatedEmployee };
 
