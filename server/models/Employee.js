@@ -1,73 +1,76 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const Role = require('./Role');
-// const Thought = require('./Thought');
-// const Task = require('./Task');
-// const ToDo = require('./ToDo');
-// const commentSchema = require('./Comment');
 
-// import schema from Book.js
-// const bookSchema = require('./Book');
-
+/**
+ * Employee Schema
+ * This schema represents the structure of an employee document in the database.
+ */
 const employeeSchema = new Schema(
-  {
-    employeeID: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    firstname: {
-      type: String,
-      required: true,
-    },
-    lastname: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address'],
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    roleID: {
-      type: String,
-    },
-    avatarURI: {
-      type: String,
-      default: "https://i.pravatar.cc/300",
-    },
-  },
-  // set this to use virtual below
-  {
-    toJSON: {
-      virtuals: true,
-    },
-  }
+	{
+		employeeID: {
+			type: String,
+			required: [true, 'Employee ID is required'],
+			unique: true, // Ensure each employeeID is unique
+			trim: true, // Trim whitespace from the employee ID
+		},
+		firstname: {
+			type: String,
+			required: [true, 'First name is required'],
+			trim: true, // Trim whitespace from the first name
+		},
+		lastname: {
+			type: String,
+			required: [true, 'Last name is required'],
+			trim: true, // Trim whitespace from the last name
+		},
+		email: {
+			type: String,
+			required: [true, 'Email is required'],
+			unique: true, // Ensure each email is unique
+			match: [/.+@.+\..+/, 'Must use a valid email address'],
+			trim: true, // Trim whitespace from the email
+		},
+		password: {
+			type: String,
+			required: [true, 'Password is required'],
+		},
+		roleID: {
+			type: String,
+			ref: 'Role', // Reference to the Role model
+			trim: true, // Trim whitespace from the role ID
+		},
+		avatarURI: {
+			type: String,
+			default: 'https://i.pravatar.cc/300', // Default avatar URI
+			trim: true, // Trim whitespace from the avatar URI
+		},
+	},
+	{
+		toJSON: {
+			virtuals: true, // Enable virtual fields when converting to JSON
+		},
+		timestamps: true, // Automatically add createdAt and updatedAt fields
+	}
 );
 
-// hash user password
+// Hash user password before saving
 employeeSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(this.password, saltRounds);
-  }
-
-  next();
+	if (this.isNew || this.isModified('password')) {
+		const saltRounds = 10;
+		this.password = await bcrypt.hash(this.password, saltRounds);
+	}
+	next();
 });
 
-// custom method to compare and validate password for logging in
+// Custom method to compare and validate password for logging in
 employeeSchema.methods.isCorrectPassword = async function (password) {
-  return bcrypt.compare(password, this.password);
+	return bcrypt.compare(password, this.password);
 };
 
-// when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
+// Virtual field to get the full name of the employee
 employeeSchema.virtual('name').get(function () {
-  return this.firstname + " " + this.lastname;
+	return `${this.firstname} ${this.lastname}`;
 });
 
 const Employee = model('Employee', employeeSchema);
