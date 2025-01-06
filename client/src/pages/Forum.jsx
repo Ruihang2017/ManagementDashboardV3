@@ -37,6 +37,7 @@ export default function Forum() {
     }
 
     //  CREATE_COMMENT  
+    // TODO: Use Mutation Result to directly render the message instead of refetching the queries
     const [createComment, { createCommentError }] = useMutation(CREATE_COMMENT, {
         refetchQueries: [
             QUERY_THOUGHTS,
@@ -45,6 +46,7 @@ export default function Forum() {
     });
 
     //  CREATE_THOUGHT  
+    // TODO: Use Mutation Result to directly render the message instead of refetching the queries
     const [createThought, { createThoughtError }] = useMutation(CREATE_THOUGHT, {
         refetchQueries: [
             QUERY_THOUGHTS,

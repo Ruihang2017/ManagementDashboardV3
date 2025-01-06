@@ -18,11 +18,11 @@ import Settings from './pages/settings'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <App />, // App is the parent component
     errorElement: <h1 className='display-2'>Wrong page!</h1>,
     children: [
       {
-        index: true,
+        index: true, // This means this is the default child for the "/" route 
         element: <Forum />
       },
       {

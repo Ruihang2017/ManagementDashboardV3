@@ -80,16 +80,14 @@ function App() {
             <Sidebar />
           </Box>
 
-          <Box
-            width={"100%"}
-            pl={{ sm: "300px" }}
-          >
+          <Box width={"100%"} pl={{ sm: "300px" }}>
+            {/* This is where the child route components will be rendered */}
             <Outlet />
           </Box>
         </Box>
       </ChakraProvider>
     </ApolloProvider >
   )
-}
+}xq
 
 export default App;
