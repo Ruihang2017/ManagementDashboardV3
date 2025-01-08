@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import App from './App.jsx'
-import SearchBooks from './pages/SearchBooks'
+// import SearchBooks from './pages/SearchBooks'
 import SavedBooks from './pages/SavedBooks'
 import Analytics from './pages/Analytics.jsx'
 import Setting from './pages/Setting'

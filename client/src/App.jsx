@@ -8,38 +8,22 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 
 import {
   ChakraProvider,
   Box,
-  extendTheme,
-  Flex,
-  SimpleGrid,
-  Grid,
-  GridItem
+  // extendTheme,
+  // Flex,
+  // SimpleGrid,
+  // Grid,
+  // GridItem
 } from '@chakra-ui/react'
 
 
 // import components
-import { CardTwoBtn } from './components/card/CardTwoBtn';
 import { Sidebar } from './components/sidebar/Sidebar'
 import initialTheme from './theme/theme'; //  { themeGreen }
-
-
-
-// // setting up the theme
-// const colors = {
-//   brand: {
-//     900: '#1a365d',
-//     800: '#153e75',
-//     700: '#2a69ac',
-//   },
-// }
-
-// const theme = extendTheme({ colors })
-
-
 
 
 const httpLink = createHttpLink({
@@ -88,6 +72,6 @@ function App() {
       </ChakraProvider>
     </ApolloProvider >
   )
-}xq
+}
 
 export default App;
