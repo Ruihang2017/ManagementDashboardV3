@@ -1,38 +1,24 @@
 import {
-    Avatar,
     Box,
-    Flex,
-    FormLabel,
-    Icon,
-    Select,
     SimpleGrid,
-    Container,
-    useColorModeValue,
     Card,
     CardBody,
     CardHeader,
     Heading,
 } from "@chakra-ui/react";
 
-import { CardTwoBtn } from '../components/card/CardTwoBtn';
 import { Stat } from '../components/card/Stat';
 import PieChart from '../components/chart/PieChart';
 import LineChart from '../components/chart/LineChart';
-import BarChart from "../components/chart/BarChart";
 
 import {
     pieChartData,
     pieChartOptions,
     lineChartDataTotalSpent,
     lineChartOptionsTotalSpent,
-    barChartDataDailyTraffic,
-    barChartOptionsDailyTraffic,
-    barChartDataConsumption,
-    barChartOptionsConsumption,
 } from "../variables/charts";
 
-
-
+// Define statistics data
 const stats = [
     {
         label: 'Total Subscribers',
@@ -60,29 +46,24 @@ const stats = [
     },
 ]
 
+/**
+ * Setting component that displays various statistics and charts.
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function Setting() {
-
     return (
-        <Box>
-            <SimpleGrid
-                columns={{ sm: 1, md: 3, "2xl": 3 }}
-                gap='3'
-                m='5'>
+        <Box p={5}>
+            <SimpleGrid columns={{ sm: 1, md: 3, "2xl": 3 }} gap={3} mb={5}>
                 {stats.map((stat, id) => (
                     <Stat key={id} {...stat} />
                 ))}
             </SimpleGrid>
-            <SimpleGrid
-                columns={{ sm: 1, md: 2, "2xl": 2 }}
-                gap='3'
-                m='5'
-            >
-                <Card >
+            <SimpleGrid columns={{ sm: 1, md: 2, "2xl": 2 }} gap={3}>
+                <Card>
+                    <CardHeader>
+                        <Heading size='md'>Client Report</Heading>
+                    </CardHeader>
                     <CardBody>
-                        <CardHeader>
-                            <Heading size='md'>Client Report</Heading>
-                        </CardHeader>
-
                         <PieChart
                             h='100%'
                             w='100%'
@@ -92,10 +73,10 @@ export default function Setting() {
                     </CardBody>
                 </Card>
                 <Card>
+                    <CardHeader>
+                        <Heading size='md'>Client Report</Heading>
+                    </CardHeader>
                     <CardBody>
-                        <CardHeader>
-                            <Heading size='md'>Client Report</Heading>
-                        </CardHeader>
                         <Box minH='260px' w='100%' mt='auto'>
                             <LineChart
                                 chartData={lineChartDataTotalSpent}
@@ -105,9 +86,6 @@ export default function Setting() {
                     </CardBody>
                 </Card>
             </SimpleGrid>
-
         </Box>
-    )
-
-
+    );
 }
