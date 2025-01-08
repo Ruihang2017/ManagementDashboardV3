@@ -1,73 +1,64 @@
-import React from "react";
-// Chakra imports
 import {
     Flex, Text, useColorModeValue, Box,
-    useBreakpointValue,
     useDisclosure,
 } from "@chakra-ui/react";
-import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Navigate } from 'react-router-dom';
-
-// Assets
 import postImage from "@assets/img/profile/postImage.png";
-import avatar10 from "@assets/img/avatars/avatar10.png";
-import avatar2 from "@assets/img/avatars/avatar2.png";
-import avatar4 from "@assets/img/avatars/avatar4.png";
-// Custom components
 import { VSeparator } from "../components/separator/Separator";
-import Trending from "./forum/components/Trending";
 import Stories from "./forum/components/Stories";
 import Post from "./forum/components/Post";
-import Filter from "./forum/components/Filter";
 import Comment from "@components/dataDisplay/Comment";
-import { Stack } from "react-bootstrap";
 import { ThoughtModal } from "@components/modal/ThoughtModal";
 import Auth from '@utils/auth';
-import { QUERY_THOUGHTS, QUERY_EMPLOYEES_PROFILE_INFO, QUERY_EMPLOYEES, QUERY_ME } from '@utils/queries';
+import { QUERY_THOUGHTS, QUERY_EMPLOYEES_PROFILE_INFO, QUERY_ME } from '@utils/queries';
 import { CREATE_THOUGHT, CREATE_COMMENT } from '@utils/mutations';
 import { v4 as uuidv4 } from 'uuid';
 
-
+/**
+ * Forum component that checks if the user is logged in and renders the ForumContent component.
+ * If the user is not logged in, the user is redirected to the signup page.
+ * @returns <ForumContent />
+ */
 export default function Forum() {
-
     if (!Auth.loggedIn()) {
-        // Alert("Log in or sign up");
         return <Navigate to="/signup" />;
     }
 
-    //  CREATE_COMMENT  
-    // TODO: Use Mutation Result to directly render the message instead of refetching the queries
+    return <ForumContent />;
+}
+
+/**
+ * ForumContent component that fetches data using GraphQL queries and displays various UI elements such as posts, comments, and stories.
+ */
+function ForumContent() {
+    // Mutation for creating a comment
     const [createComment, { createCommentError }] = useMutation(CREATE_COMMENT, {
         refetchQueries: [
             QUERY_THOUGHTS,
-            // 'thoughts'
         ]
     });
 
-    //  CREATE_THOUGHT  
-    // TODO: Use Mutation Result to directly render the message instead of refetching the queries
+    // Mutation for creating a thought
     const [createThought, { createThoughtError }] = useMutation(CREATE_THOUGHT, {
         refetchQueries: [
             QUERY_THOUGHTS,
-            // 'thoughts'
         ]
     });
 
-    //  QUERY_ME  
-    const { loading: loadingQueryMe, data: dataQueryMe } = useQuery(QUERY_ME);
+    //  Query for fetching user data  
+    const {data: dataQueryMe } = useQuery(QUERY_ME);
     const me = dataQueryMe?.me || [];
-    // console.log(me);
 
-    //  QUERY_EMPLOYEES_PROFILE_INFO  
+    //  Query for fetching employees profile info  
     const { loading: loadingQueryEmployeesProfileInfo, data: dataQueryEmployeesProfileInfo } = useQuery(QUERY_EMPLOYEES_PROFILE_INFO);
     const employeesProfileInfo = dataQueryEmployeesProfileInfo?.employees || [];
 
-    //  QUERY_THOUGHTS  
+    // Query for fetching thoughts
     const { loading: loadingThoughts, data: dataThoughts } = useQuery(QUERY_THOUGHTS);
     const thoughts = dataThoughts?.thoughts || [];
 
-    // populate the thoughtData with Employee data
+    // Populate the thoughtData with employee data
     const thoughtData = thoughts.map(thought => {
         const populatedEmployee = employeesProfileInfo.find(employeesProfile => employeesProfile.employeeID === thought.EmployeeID);
         const populatedComments = thought.comments.map(comment => {
@@ -85,18 +76,15 @@ export default function Forum() {
         };
     });
 
-    // modal disclosure
+    // Modal disclosure
     const disclosure = useDisclosure()
 
-    // console.log(thoughtData);
     // Chakra color mode
     const textColor = useColorModeValue("gray.700", "white");
     const paleGray = useColorModeValue("secondaryGray.400", "whiteAlpha.100");
-    const white = useColorModeValue('white', 'navy.900');
 
-    // addAThought
+    // Function to add a thought
     const addAThought = async (data) => {
-        // console.log(data);
         const variables = {
             thought: {
                 EmployeeID: me.employeeID,
@@ -104,19 +92,12 @@ export default function Forum() {
                 title: data.title,
                 thoughtID: uuidv4()
             }
-        }
-        // console.log(variables);
+        };
 
         try {
-            const { data } = await createThought({
+            await createThought({
                 variables: variables
             });
-            // console.log(data);
-            // setTaskData([...taskData, data.createTask]);
-            // setEmptyTask({
-            //     ...emptyTask,
-            //     taskID: uuidv4()
-            // })
         } catch (err) {
             console.error(err);
         }
@@ -132,27 +113,15 @@ export default function Forum() {
                 commentID: uuidv4()
             }
         }
-        // console.log(variables);
 
         try {
-            const { data } = await createComment({
+            await createComment({
                 variables: variables
             });
-            console.log(data);
-            // setTaskData([...taskData, data.createTask]);
-            // setEmptyTask({
-            //     ...emptyTask,
-            //     taskID: uuidv4()
-            // })
         } catch (err) {
             console.error(err);
         }
     }
-
-    // const isMobile = useBreakpointValue({
-    //     base: true,
-    //     md: false,
-    // })
 
     if (loadingThoughts || loadingQueryEmployeesProfileInfo) {
         return <div>Loading...</div>;
@@ -207,6 +176,8 @@ export default function Forum() {
             <VSeparator mx='20px' bg={paleGray} display={{ base: "none", xl: "flex" }} />
             {/* <Trending w={{ base: "100%", xl: "500px", "2xl": "400px" }} maxH={{ base: "100%", xl: "1170px", "2xl": "100%" }} /> */}
             <ThoughtModal disclosure={disclosure} addAThought={addAThought} />
+            {createCommentError && <Text color="red.500">Error creating comment: {createCommentError.message}</Text>}
+            {createThoughtError && <Text color="red.500">Error creating thought: {createThoughtError.message}</Text>}
         </Flex>
     );
 }
