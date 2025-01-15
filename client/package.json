@@ -34,7 +34,8 @@
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.11.2",
     "react-scripts": "4.0.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "prop-types": "^15.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
