@@ -7,31 +7,24 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
-
-// import Navbar from './components/Navbar';
-
 import {
   ChakraProvider,
   Box,
-  // extendTheme,
-  // Flex,
-  // SimpleGrid,
-  // Grid,
-  // GridItem
 } from '@chakra-ui/react'
-
-
-// import components
 import { Sidebar } from './components/sidebar/Sidebar'
 import initialTheme from './theme/theme'; //  { themeGreen }
 
-
+/**
+ * Create an HTTP link to the GraphQL server
+ */
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
 
 
-// Construct request middleware that will attach the JWT token to every request as an `authorization` header
+/**
+ * Construct request middleware that will attach the JWT token to every request as an `authorization` header.
+ */
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem('id_token');
@@ -44,14 +37,19 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+/**
+ * Initialize Apollo Client with the authLink middleware and HTTP link.
+ */
 const client = new ApolloClient({
-  // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
 
-
+/**
+ * Main App component that sets up the ApolloProvider and ChakraProvider.
+ * It includes the Sidebar and renders child route components using Outlet.
+ */
 function App() {
   return (
     <ApolloProvider client={client}>
