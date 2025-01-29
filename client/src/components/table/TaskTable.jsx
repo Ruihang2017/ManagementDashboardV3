@@ -28,8 +28,12 @@ import { TaskModal } from '../modal/TaskModal';
 import { TaskTableRow } from './TaskTableRow';
 import { QUERY_TASKS } from '@utils/queries';
 
-//   import { members } from './data'
-
+/**
+ * TaskTable component to display and manage tasks.
+ * @param {Object} props - Component properties.
+ * @param {Array} props.taskData - Array of task data.
+ * @param {Array} props.employeesProfileInfo - Array of employee profile information.
+ */
 export const TaskTable = (props) => {
     const textColor = useColorModeValue("gray.700", "white");
     const paleGray = useColorModeValue("secondaryGray.400", "whiteAlpha.100");
@@ -41,10 +45,7 @@ export const TaskTable = (props) => {
 
 
     const [CreateTask, { CreateTaskError }] = useMutation(CREATE_TASK, {
-        refetchQueries: [
-            QUERY_TASKS,
-            // 'tasks'
-        ]
+        refetchQueries: [QUERY_TASKS],
     });
     const disclosure = useDisclosure()
     const creatTaskDisclosure = useDisclosure()
@@ -58,14 +59,11 @@ export const TaskTable = (props) => {
         EmployeeIDs: [],
         todos: []
     });
-    console.log(taskData);
 
-    // const [taskData, setTaskData] = useState(taskDataInput);
-    // console.log(employeesProfileInfo);
-    // createTask
+    /**
+     * Function to create a new task.
+     */
     async function createTask() {
-
-
         const variables = {
             task: emptyTask
         }
@@ -94,7 +92,6 @@ export const TaskTable = (props) => {
                     <Button variant='brand' minW='183px' fontSize='sm' fontWeight='500' ms='auto'
                         onClick={() => {
                             createTask();
-                            // creatTaskDisclosure.onOpen();
                         }}>
                         Create Task
                     </Button>

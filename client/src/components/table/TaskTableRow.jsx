@@ -19,16 +19,18 @@ import {
 import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 import { useState, useEffect } from 'react';
 import { TaskModal } from '../modal/TaskModal';
+import PropTypes from 'prop-types';
 
-//   import { members } from './data'
-
+/**
+ * TaskTableRow component to display a single task row in the task table.
+ * @param {Object} props - Component properties.
+ * @param {Object} props.task - Task data.
+ * @param {Array} props.employeesProfileInfo - Array of employee profile information.
+ * @param {Function} props.SetSelectedTask - Function to set the selected task.
+ * @param {Object} props.disclosure - Disclosure object for modal control.
+ * @param {boolean} props.isNew - Flag indicating if the task is new.
+ */
 export const TaskTableRow = ({ task, employeesProfileInfo, SetSelectedTask, disclosure, isNew }) => {
-
-    // const disclosure = useDisclosure()
-    // const [selectedTask, SetSelectedTask] = useState("");
-
-    // const [taskData, setTaskData] = useState(taskDataInput);
-    // console.log(employeesProfileInfo);
     const [isEditing, SetIsEditing] = useState(false)
 
     return (
@@ -41,7 +43,6 @@ export const TaskTableRow = ({ task, employeesProfileInfo, SetSelectedTask, disc
                 </Td>
                 <Td>
                     <Text color="fg.muted">{task.taskID}</Text>
-                    {/* <Input px="0" maxW={{ md: '3xl', }} defaultValue={task.taskID} /> */}
                 </Td>
                 <Td>
                     <Text color="fg.muted">{task.taskName}</Text>
@@ -61,7 +62,6 @@ export const TaskTableRow = ({ task, employeesProfileInfo, SetSelectedTask, disc
                 </Td>
                 <Td>
                     <HStack spacing="1">
-                        {/* <Checkbox /> */}
                         <IconButton icon={<FiEdit2 />}
                             variant="tertiary" aria-label="Edit task" onClick={() => {
                                 disclosure.onOpen();
@@ -73,3 +73,11 @@ export const TaskTableRow = ({ task, employeesProfileInfo, SetSelectedTask, disc
         </>
     )
 }
+
+TaskTableRow.propTypes = {
+    task: PropTypes.object.isRequired,
+    employeesProfileInfo: PropTypes.array.isRequired,
+    SetSelectedTask: PropTypes.func.isRequired,
+    disclosure: PropTypes.object.isRequired,
+    isNew: PropTypes.bool,
+};
