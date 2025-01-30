@@ -8,7 +8,9 @@
     "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
-    "seed": "cd server && npm run seed"
+    "seed": "cd server && npm run seed",
+    "lint": "eslint client/src server --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint client/src server --fix --report-unused-disable-directives --max-warnings 0"
   },
   "keywords": [],
   "author": "",
