@@ -28,6 +28,7 @@ import { HSeparator } from "components/separator/Separator.js";
 import React from "react";
 import SeeStory from "components/actions/SeeStory";
 import TransparentMenu from "components/menu/TransparentMenu";
+import PropTypes from 'prop-types';
 
 export default function Post(props) {
   const {
@@ -214,3 +215,16 @@ export default function Post(props) {
     </Card>
   );
 }
+
+Post.propTypes = {
+  avatar: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  likes: PropTypes.number.isRequired,
+  comments: PropTypes.number.isRequired,
+  shares: PropTypes.number.isRequired,
+  saves: PropTypes.number.isRequired,
+  commentBlocks: PropTypes.node.isRequired,
+  you: PropTypes.string.isRequired,
+};

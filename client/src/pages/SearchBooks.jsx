@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
 import {
   Container,
@@ -21,7 +20,7 @@ import { QUERY_ME } from '../utils/queries';
 const SearchBooks = () => {
 
   // get me and the saved booked when logged in
-  const { loading, data } = useQuery(QUERY_ME);
+  const { data } = useQuery(QUERY_ME);
   const user = data?.me || [];
 
   const [savedBookIds, setSavedBookIds] = useState([]);
