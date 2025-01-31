@@ -20,6 +20,7 @@ import { CREATE_TODO, UPDATE_TODO, DELETE_TODO } from '@utils/mutations';
  */
 export const TodoTable = (props) => {
     // { todos, setTask, taskEmployees, taskID }
+
     const [todos, setTodos] = useState(props.todos)
     const [taskEmployees, setTaskEmployees] = useState(props.taskEmployees)
     const [taskID, setTaskID] = useState(props.taskID)
@@ -34,9 +35,6 @@ export const TodoTable = (props) => {
         description: "Task description",
         employees: [],
     });
-    // console.log(taskEmployees);
-    // console.log(props.taskEmployees);
-
 
     useEffect(() => {
         props.setTask({
@@ -52,6 +50,9 @@ export const TodoTable = (props) => {
         // console.log(todos);
     }, [props.taskEmployees]);
 
+    console.log('taskEmployees:', taskEmployees)
+    console.log('todos in the TodoTable:', todos);
+    
     const addToDo = async (_data) => {
 
         const EmployeeIDs = [];

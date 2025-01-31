@@ -18,7 +18,6 @@ import {
 } from '@chakra-ui/react'
 import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 import { useState, useEffect } from 'react';
-import { TaskModal } from '../modal/TaskModal';
 import PropTypes from 'prop-types';
 
 /**
@@ -26,11 +25,11 @@ import PropTypes from 'prop-types';
  * @param {Object} props - Component properties.
  * @param {Object} props.task - Task data.
  * @param {Array} props.employeesProfileInfo - Array of employee profile information.
- * @param {Function} props.SetSelectedTask - Function to set the selected task.
+ * @param {Function} props.setSelectedTask - Function to set the selected task.
  * @param {Object} props.disclosure - Disclosure object for modal control.
  * @param {boolean} props.isNew - Flag indicating if the task is new.
  */
-export const TaskTableRow = ({ task, employeesProfileInfo, SetSelectedTask, disclosure, isNew }) => {
+export const TaskTableRow = ({ task, employeesProfileInfo, setSelectedTask, disclosure, isNew }) => {
     const [isEditing, SetIsEditing] = useState(false)
 
     return (
@@ -65,7 +64,7 @@ export const TaskTableRow = ({ task, employeesProfileInfo, SetSelectedTask, disc
                         <IconButton icon={<FiEdit2 />}
                             variant="tertiary" aria-label="Edit task" onClick={() => {
                                 disclosure.onOpen();
-                                SetSelectedTask(task);
+                                setSelectedTask(task);
                             }} />
                     </HStack>
                 </Td>
@@ -77,7 +76,7 @@ export const TaskTableRow = ({ task, employeesProfileInfo, SetSelectedTask, disc
 TaskTableRow.propTypes = {
     task: PropTypes.object.isRequired,
     employeesProfileInfo: PropTypes.array.isRequired,
-    SetSelectedTask: PropTypes.func.isRequired,
+    setSelectedTask: PropTypes.func.isRequired,
     disclosure: PropTypes.object.isRequired,
     isNew: PropTypes.bool,
 };

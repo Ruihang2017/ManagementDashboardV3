@@ -33,6 +33,8 @@ const ToDoTableRow = ({
     deleteToDo,
     changeTaskCompleted
     }) => {
+
+
     const [todo, setTodo] = useState(initialTodo);
     const [taskEmployees, setTaskEmployees] = useState(initialTaskEmployees);
     const [availableTaskEmployees, setAvailableTaskEmployees] = useState(() => {
@@ -56,20 +58,32 @@ const ToDoTableRow = ({
     }, [taskEmployees, todo.EmployeeIDs]);
 
     const addToDoEmployee = (employee) => {
+        console.log("before add availableTaskEmployees", availableTaskEmployees)
+
+
         setTodo(prevTodo => ({
             ...prevTodo,
-            EmployeeIDs: prevTodo.EmployeeIDs.filter(id => id !== employee.employeeID),
+            EmployeeIDs: [...prevTodo.EmployeeIDs, employee.employeeID],
         }));
-        setAvailableTaskEmployees(prevEmployees => [...prevEmployees, employee]);
+        // setAvailableTaskEmployees(prevEmployees => [...prevEmployees, employee]);
+        console.log("before add availableTaskEmployees", availableTaskEmployees)
+
     }
 
     const removeToDoEmployee = (employee) => {
+        console.log("before remove availableTaskEmployees", availableTaskEmployees)
+
         setTodo(prevTodo => ({
             ...prevTodo,
             EmployeeIDs: prevTodo.EmployeeIDs.filter(id => id !== employee.employeeID),
         }));
-        setAvailableTaskEmployees(prevEmployees => [...prevEmployees, employee]);
+        // setAvailableTaskEmployees(prevEmployees => [...prevEmployees, employee]);
+        console.log("before remove availableTaskEmployees", availableTaskEmployees)
+
     };
+
+    console.log('taskEmployees in ToDoTableRow:', taskEmployees);
+
 
     return (
         <Tr key={todo.todoID}>
@@ -129,7 +143,7 @@ const ToDoTableRow = ({
                                         key={taskEmployee.employeeID}
                                         onClick={() => removeToDoEmployee(taskEmployee)}
                                         size="sm"
-                                        name={taskEmployee.name}
+                                        name={taskEmployee.firstname + taskEmployee.lastname}
                                         src={taskEmployee.avatarURI}
                                     />
                                 )
@@ -141,7 +155,7 @@ const ToDoTableRow = ({
                                 <Avatar
                                     key={taskEmployee.employeeID}
                                     size="sm"
-                                    name={taskEmployee.name}
+                                    name={taskEmployee.firstname + taskEmployee.lastname}
                                     src={taskEmployee.avatarURI}
                                 />
                             )
@@ -199,7 +213,8 @@ ToDoTableRow.propTypes = {
     }).isRequired,
     taskEmployees: PropTypes.arrayOf(PropTypes.shape({
         employeeID: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
+        firstname: PropTypes.string.isRequired,
+        lastname: PropTypes.string.isRequired,
         avatarURI: PropTypes.string,
     })).isRequired,
     updateToDo: PropTypes.func.isRequired,

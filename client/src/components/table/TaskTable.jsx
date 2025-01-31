@@ -22,11 +22,11 @@ import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useQuery, useMutation } from '@apollo/client';
-
 import { CREATE_TASK } from '@utils/mutations';
 import { TaskModal } from '../modal/TaskModal';
 import { TaskTableRow } from './TaskTableRow';
 import { QUERY_TASKS } from '@utils/queries';
+import PropTypes from 'prop-types';
 
 /**
  * TaskTable component to display and manage tasks.
@@ -50,7 +50,14 @@ export const TaskTable = (props) => {
     const disclosure = useDisclosure()
     const creatTaskDisclosure = useDisclosure()
 
-    const [selectedTask, SetSelectedTask] = useState("");
+    const [selectedTask, setSelectedTask] = useState({
+        taskID: '',
+        taskName: '',
+        taskDescription: '',
+        EmployeeIDs: [],
+        completed: false,
+        todos: [],
+      });
     const [emptyTask, setEmptyTask] = useState({
         taskID: uuidv4(),
         completed: false,
@@ -112,7 +119,7 @@ export const TaskTable = (props) => {
                             <TaskTableRow key={task.taskID}
                                 task={task}
                                 employeesProfileInfo={employeesProfileInfo}
-                                SetSelectedTask={SetSelectedTask}
+                                setSelectedTask={setSelectedTask}
                                 disclosure={disclosure}
                                 isNew={false}
                             />
@@ -127,3 +134,17 @@ export const TaskTable = (props) => {
         </>
     )
 }
+
+TaskTable.propTypes = {
+    taskData: PropTypes.arrayOf(
+      PropTypes.shape({
+        taskID: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    employeesProfileInfo: PropTypes.arrayOf(
+      PropTypes.shape({
+        employeeID: PropTypes.string.isRequired,
+        avatarURI: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  };
