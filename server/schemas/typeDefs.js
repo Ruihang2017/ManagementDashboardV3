@@ -1,4 +1,10 @@
+/**
+ * GraphQL type definitions for the schema.
+ */
 const typeDefs = `
+    """
+    Represents a task in the system.
+    """
     type Task {
         _id: ID!
         taskID: String
@@ -12,6 +18,9 @@ const typeDefs = `
         EmployeeIDs:[String]
     }
 
+    """
+    Input type for creating or updating a task.
+    """
     input TaskInput {
         taskID: String
         taskName: String!
@@ -24,6 +33,9 @@ const typeDefs = `
         EmployeeIDs:[String]
     }
 
+    """
+    Represents a to-do item within a task.
+    """
     type ToDo {
         _id: ID!
         todoID: String
@@ -34,6 +46,9 @@ const typeDefs = `
         EmployeeIDs:[String]
     }
 
+    """
+    Input type for creating or updating a to-do item.
+    """
     input ToDoInput {
         todoID: String
         name: String
@@ -43,6 +58,9 @@ const typeDefs = `
         EmployeeIDs:[String]
     }
 
+    """
+    Represents an employee in the system.
+    """
     type Employee {
         _id: ID
         employeeID: String
@@ -54,6 +72,9 @@ const typeDefs = `
         avatarURI: String
     }
 
+    """
+    Input type for creating or updating an employee.
+    """
     input EmployeeInput {
         _id: ID
         employeeID: String
@@ -65,12 +86,18 @@ const typeDefs = `
         avatarURI: String
     }
 
+    """
+    Represents a role in the system.
+    """
     type Role {
         _id: ID
         roleID: String
         roleName: String
     }
 
+    """
+    Represents a thought in the system.
+    """
     type Thought {
         _id: ID
         thoughtID: String
@@ -81,6 +108,9 @@ const typeDefs = `
         EmployeeID:String
     }
 
+    """
+    Input type for creating or updating a thought.
+    """
     input ThoughtInput {
         thoughtID: String
         title: String
@@ -88,6 +118,9 @@ const typeDefs = `
         EmployeeID:String
     }
 
+    """
+    Represents a comment on a thought.
+    """
     type Comment {
         _id: ID
         commentID: String
@@ -96,17 +129,18 @@ const typeDefs = `
         EmployeeID:String
     }
 
+    """
+    Input type for creating or updating a comment.
+    """
     input CommentInput {
         commentID: String
         commentContent: String
         EmployeeID:String
     }
 
-    type Auth {
-        token: ID!
-        Employee: Employee
-    }
-
+    """
+    Root Query type.
+    """
     type Query {
         tasks: [Task]
         employees: [Employee]
@@ -117,6 +151,9 @@ const typeDefs = `
         me: Employee
     }
 
+    """
+    Root Mutation type.
+    """
     type Mutation {
         login(email: String!, password: String!): Auth
 
@@ -138,6 +175,14 @@ const typeDefs = `
         updateToDo(taskID: String! , todo: ToDoInput!): Task
         deleteToDo(taskID: String!, todoID: String!): Task
     }
-`
+
+    """
+    Represents authentication information.
+    """
+    type Auth {
+        token: ID!
+        Employee: Employee
+    }
+`;
 
 module.exports = typeDefs;

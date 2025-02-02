@@ -10,7 +10,8 @@
     "build": "cd client && npm run build",
     "seed": "cd server && npm run seed",
     "lint": "eslint client/src server --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint client/src server --fix --report-unused-disable-directives --max-warnings 0"
+    "lint:fix": "eslint client/src server --fix --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -23,7 +24,7 @@
     "eslint": "^9.19.0",
     "eslint-plugin-react": "^7.37.4",
     "globals": "^15.14.0",
-    "prettier": "^3.0.3"
+    "prettier": "3.4.2"
   },
   "dependencies": {
     "chakra-dayzed-datepicker": "^0.2.10",

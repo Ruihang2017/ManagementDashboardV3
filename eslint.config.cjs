@@ -20,6 +20,7 @@ module.exports = [
       globals: {
         window: "readonly",
         localStorage: "readonly",
+        console: "readonly", // Add console to globals
       },
     },
     plugins: {
