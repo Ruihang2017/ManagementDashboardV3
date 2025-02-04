@@ -35,6 +35,24 @@ import React from "react";
 import SeeStory from "@components/actions/SeeStory";
 import TransparentMenu from "@components/menu/TransparentMenu";
 import { useState, useEffect } from 'react';
+import PropTypes from "prop-types";
+
+Post.propTypes = {
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    likes: PropTypes.number,
+    comments: PropTypes.number,
+    shares: PropTypes.number,
+    saves: PropTypes.number,
+    commentBlocks: PropTypes.node,
+    you: PropTypes.string.isRequired,
+    thoughtData: PropTypes.string.isRequired,
+    thoughtTitle: PropTypes.string.isRequired,
+    thoughtID: PropTypes.string.isRequired,
+    addComment: PropTypes.func.isRequired,
+};
 
 export default function Post(props) {
   const {

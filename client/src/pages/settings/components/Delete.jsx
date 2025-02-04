@@ -8,6 +8,11 @@ import {
 } from "@chakra-ui/react";
 import Card from "@components/card/Card";
 import React from "react";
+import PropTypes from "prop-types";
+
+Delete.propTypes = {
+    deleteEmployee: PropTypes.func.isRequired,
+};
 
 export default function Delete(props) {
   const { deleteEmployee, ...rest } = props;

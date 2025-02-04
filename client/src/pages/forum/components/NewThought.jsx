@@ -13,7 +13,14 @@ import InputField from "@components/fields/InputField";
 import TextField from "@components/fields/TextField";
 import React from "react";
 import { useState, useEffect } from 'react'
+import PropTypes from "prop-types";
 
+NewThought.propTypes = {
+    disclosure: PropTypes.shape({
+        onClose: PropTypes.func.isRequired,
+    }).isRequired,
+    addAThought: PropTypes.func.isRequired,
+};
 
 export default function NewThought(props) {
   const { disclosure, addAThought, ...rest } = props;
