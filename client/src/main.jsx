@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import App from './App.jsx'
-import SearchBooks from './pages/SearchBooks'
 import SavedBooks from './pages/SavedBooks'
 import Analytics from './pages/Analytics.jsx'
 import Setting from './pages/Setting'
@@ -11,18 +10,19 @@ import Forum from './pages/Forum'
 import Task from './pages/Task'
 import SignIn from './pages/SignInCentered.jsx'
 import SignUp from './pages/SignUpCentered.jsx'
-
 import Settings from './pages/settings'
 
-
+/**
+ * Define the routes for the application.
+ */
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <App />, // App is the parent component
     errorElement: <h1 className='display-2'>Wrong page!</h1>,
     children: [
       {
-        index: true,
+        index: true, // This means this is the default child for the "/" route 
         element: <Forum />
       },
       {
@@ -57,6 +57,9 @@ const router = createBrowserRouter([
   }
 ])
 
+/**
+ * Render the application.
+ */
 ReactDOM.createRoot(document.getElementById('root')).render(
   <RouterProvider router={router} />
 )

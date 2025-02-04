@@ -3,6 +3,7 @@ import { Flex, Text, Avatar, useColorModeValue, Button } from "@chakra-ui/react"
 import Card from "@components/card/Card";
 import profileAvatar from "@assets/img/avatars/avatar4.png";
 import React from "react";
+import PropTypes from 'prop-types';
 
 export default function Profile(props) {
   const { userData, selectANewAvatar, disclosure, ...rest } = props;
@@ -25,15 +26,20 @@ export default function Profile(props) {
             {userData.email}
           </Text>
         </Flex>
-        {/* <Button variant='brand' minW='183px' fontSize='sm' fontWeight='500' ms='auto'
-          onClick={() => {
-            updateEmployee(formData);
-            // createTask();
-            // creatTaskDisclosure.onOpen();
-          }}>
-
-        </Button> */}
       </Flex>
     </Card>
   );
 }
+
+Profile.propTypes = {
+  userData: PropTypes.shape({
+    avatarURI: PropTypes.string.isRequired,
+    firstname: PropTypes.string.isRequired,
+    lastname: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired,
+  selectANewAvatar: PropTypes.func.isRequired,
+  disclosure: PropTypes.shape({
+    onOpen: PropTypes.func.isRequired,
+  }).isRequired,
+};

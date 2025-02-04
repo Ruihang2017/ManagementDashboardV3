@@ -5,22 +5,32 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
-    "seed": "cd server && npm run seed"
+    "seed": "cd server && npm run seed",
+    "lint": "eslint client/src server --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint client/src server --fix --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/eslint-parser": "^7.26.5",
+    "@babel/preset-react": "^7.26.3",
+    "@eslint/js": "^9.19.0",
     "concurrently": "^5.1.0",
-    "prettier": "^3.0.3"
+    "eslint": "^9.19.0",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^15.14.0",
+    "prettier": "3.4.2"
   },
   "dependencies": {
     "chakra-dayzed-datepicker": "^0.2.10",
     "date-fns": "^2.30.0",
     "dayzed": "^3.2.3",
+    "dotenv": "^16.4.7",
     "mongodb": "^6.1.0"
   }
 }

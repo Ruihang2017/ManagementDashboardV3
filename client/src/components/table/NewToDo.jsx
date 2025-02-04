@@ -23,9 +23,7 @@ import { TiUserAddOutline } from "react-icons/ti";
 
 
 import { useState, useEffect } from 'react';
-import { TaskModal } from '../modal/TaskModal';
 import TodoMenu from "@components/menu/TodoMenu";
-import ToDoTableRow from "@components/table/ToDoTableRow";
 
 
 const NewToDo = ({ taskEmployees, addToDo, newToDo, SetNewToDo, availableTaskEmployees, setAvailableTaskEmployees }) => {
@@ -44,7 +42,6 @@ const NewToDo = ({ taskEmployees, addToDo, newToDo, SetNewToDo, availableTaskEmp
     }
 
     const removeToDoEmployee = (data) => {
-        // console.log(data);
         const newTaskEmployees = newToDo.employees.filter(employee => employee.employeeID !== data.employeeID);
         SetNewToDo({
             ...newToDo,

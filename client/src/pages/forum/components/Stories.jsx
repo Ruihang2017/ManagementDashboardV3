@@ -21,10 +21,29 @@ import {
   storiesRenderView,
 } from "@components/scrollbar/Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 
-
-import { useState, useEffect } from 'react';
-
+Stories.propTypes = {
+    thoughts: PropTypes.arrayOf(
+        PropTypes.shape({
+            EmployeeID: PropTypes.string.isRequired,
+            // other thought properties
+        }),
+    ).isRequired,
+    employeesprofileinfo: PropTypes.arrayOf(
+        PropTypes.shape({
+            employeeID: PropTypes.string.isRequired,
+            firstname: PropTypes.string.isRequired,
+            lastname: PropTypes.string.isRequired,
+            avatarURI: PropTypes.string.isRequired,
+            // other employee properties
+        }),
+    ).isRequired,
+    disclosure: PropTypes.shape({
+        onOpen: PropTypes.func.isRequired,
+    }).isRequired,
+};
 
 export default function Stories(props) {
   const { ...rest } = props;

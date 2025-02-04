@@ -45,9 +45,14 @@ export const TaskModal = ({ disclosure, selectedTask, employeesProfileInfo, isNe
                     <ModalHeader>Task Modal</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6} >
-                        <TaskFrom selectedTask={selectedTask} employeesProfileInfo={employeesProfileInfo}
-                            disclosure={disclosure} isNewTask={isNewTask}
-                            taskData={taskData} setTaskData={setTaskData} />
+                        <TaskFrom 
+                            selectedTask={selectedTask} 
+                            employeesProfileInfo={employeesProfileInfo}
+                            disclosure={disclosure} 
+                            isNewTask={isNewTask}
+                            taskData={taskData} 
+                            setTaskData={setTaskData} 
+                        />
                     </ModalBody>
                 </ModalContent>
             </Modal >

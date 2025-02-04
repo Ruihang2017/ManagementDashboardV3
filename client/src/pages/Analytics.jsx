@@ -1,13 +1,12 @@
 import {
-    Avatar,
+    // Avatar,
     Box,
-    Flex,
-    FormLabel,
-    Icon,
-    Select,
+    // Flex,
+    // FormLabel,
+    // Icon,
+    // Select,
     SimpleGrid,
-    Container,
-    useColorModeValue,
+    // Container,
     Card,
     CardBody,
     CardHeader,
@@ -15,63 +14,64 @@ import {
 } from "@chakra-ui/react";
 
 // chart
-import { CardTwoBtn } from '../components/card/CardTwoBtn';
 import { Stat } from '../components/card/Stat';
 import PieChart from '../components/chart/PieChart';
 import LineChart from '../components/chart/LineChart';
 import BarChart from "../components/chart/BarChart";
 
 import {
-    pieChartData,
     pieChartOptions,
-    // lineChartDataTotalSpent,
-    // lineChartOptionsTotalSpent,
-    // barChartDataDailyTraffic,
-    // barChartOptionsDailyTraffic,
-    // barChartDataConsumption,
-    // barChartOptionsConsumption,
 } from "../variables/charts";
 
 //auth
 import Auth from '@utils/auth';
 
-import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import { QUERY_THOUGHTS, QUERY_EMPLOYEES, QUERY_ME, QUERY_TASKS } from '@utils/queries';
 
-
-
+/**
+ * Analytics component that checks if the user is logged in and renders the AnalyticsContent component.
+ * If the user is not logged in, the user is redirected to the signup page.
+ * @returns <AnalyticsContent />
+ */
 
 export default function Analytics() {
-
     if (!Auth.loggedIn()) {
-        // Alert("Log in or sign up");
         return <Navigate to="/signup" />;
     }
 
-    //  QUERY_ME  
+    return <AnalyticsContent />;
+}
+
+/**
+ * AnalyticsContent component that fetches data using GraphQL queries and displays various charts and statistics.
+ * @returns 
+ */
+function AnalyticsContent(){
+
+    //  Fetch user data  
     const { loading: loadingQueryMe, data: dataQueryMe } = useQuery(QUERY_ME);
     const user = dataQueryMe?.me || [];
 
-    //  QUERY_TASKS  
+    //  Fetch task data
     const { loading: loadingQueryTask, data: dataQueryTask } = useQuery(QUERY_TASKS);
     const tasks = dataQueryTask?.tasks || [];
 
-    //  QUERY_EMPLOYEES_PROFILE_INFO  
+    //  Fetch employees data
     const { loading: loadingQueryEmployees, data: dataQueryEmployees } = useQuery(QUERY_EMPLOYEES);
     const employees = dataQueryEmployees?.employees || [];
 
-    //  QUERY_THOUGHTS  
+    //  Fetch thoughts data
     const { loading: loadingThoughts, data: dataThoughts } = useQuery(QUERY_THOUGHTS);
     const thoughts = dataThoughts?.thoughts || [];
 
-    //  taskAssignment  
+    //  Calculate task assignment  
     const assignedTaskCount = tasks.filter(task => task.EmployeeIDs.length).length;
     const taskAssignment = [assignedTaskCount, tasks.length - assignedTaskCount];
 
-    // toDoAssignment
+    // Calculate to-do assignment
     let toDoAssignment = [0, 0];
     tasks.forEach(task => {
         task.todos.forEach(todo => {
@@ -84,10 +84,10 @@ export default function Analytics() {
         )
     });
 
-    // teamTaskCompletionRate
+    // Calculate team task completion rate
     const taskCompletionRate = tasks.filter(task => task.completed).length / tasks.length;
 
-    // teamToDoCompletionRate
+    // Calculate team to-do completion rate
     let todoCompletion = [0, 0];
     tasks.forEach(task => {
         task.todos.forEach(todo => {
@@ -100,31 +100,25 @@ export default function Analytics() {
     });
     const todoCompletionRate = (todoCompletion[0] / todoCompletion[1]);
 
-    // myTaskCompletionRate
+    // Calculate my task completion rate
     const myTaskCompletionRate =
         tasks.filter(task => (task.completed && task.EmployeeIDs.find(id => id === user.employeeID))).length
         / tasks.filter(task => task.EmployeeIDs.find(id => id === user.employeeID)).length;
 
-    // employeeActivityData
-
+    // Calculate employee activity data
     const employeeActivityData = employees.map(employee => {
         const employeeActivity = {
-            employeeID: "",
-            employeeName: "",
-            numberOfThoughts: 0,
+            employeeID: employee.employeeID,
+            employeeName: employee.firstname,
+            numberOfThoughts: thoughts.filter(thought => thought.EmployeeID === employee.employeeID).length,
             numberOfComments: 0,
-            numberOfTask: 0,
+            numberOfTask: tasks.filter(task => task.EmployeeIDs.find(id => id === employee.employeeID)).length,
+            numberOfCompletedTask: tasks.filter(task => (task.completed && task.EmployeeIDs.find(id => id === employee.employeeID))).length,
             numberOfToDo: 0,
-            numberOfCompletedTask: 0,
             numberOfCompletedToDo: 0,
             numberOfInCompletedTask: 0,
             numberOfInCompletedToDo: 0,
-        }
-        employeeActivity.employeeID = employee.employeeID;
-        // employeeActivity.employeeName = employee.firstname + " " + employee.lastname;
-        employeeActivity.employeeName = employee.firstname;
-
-        employeeActivity.numberOfThoughts = thoughts.filter(thought => thought.EmployeeID === employee.employeeID).length;
+        };
 
         thoughts.forEach(thought => {
             thought.comments.forEach(comment => {
@@ -133,9 +127,6 @@ export default function Analytics() {
                 }
             });
         });
-
-        employeeActivity.numberOfTask = tasks.filter(task => task.EmployeeIDs.find(id => id === employee.employeeID)).length
-        employeeActivity.numberOfCompletedTask = tasks.filter(task => (task.completed && task.EmployeeIDs.find(id => id === employee.employeeID))).length
 
         tasks.forEach(task => {
             task.todos.forEach(todo => {
@@ -155,6 +146,7 @@ export default function Analytics() {
         return employeeActivity;
     })
 
+    // Define stats for display
     const stats = [
         {
             label: 'My Task Completion Rate',
@@ -268,6 +260,7 @@ export default function Analytics() {
         color: ["#7551FF", "#39B8FF"],
     };
 
+    // Define bar chart data for daily traffic
     const barChartDataDailyTraffic = [
         {
             name: "Daily Traffic",
@@ -275,6 +268,7 @@ export default function Analytics() {
         },
     ];
 
+    // Define bar chart options for daily traffic
     const barChartOptionsDailyTraffic = {
         chart: {
             toolbar: {
@@ -371,6 +365,7 @@ export default function Analytics() {
         },
     };
 
+    // Define bar chart data for task and to-do consumption
     const barChartDataConsumption = [
         {
             name: "Completed Task & ToDo",
@@ -382,6 +377,7 @@ export default function Analytics() {
         },
     ];
 
+    // Define bar chart options for task and to-do consumption
     const barChartOptionsConsumption = {
         chart: {
             stacked: true,
@@ -470,10 +466,6 @@ export default function Analytics() {
             },
         },
     };
-
-    const textColor = useColorModeValue("gray.700", "white");
-    const paleGray = useColorModeValue("secondaryGray.400", "whiteAlpha.100");
-    const white = useColorModeValue('white', 'navy.900');
 
     if (loadingQueryMe || loadingQueryEmployees || loadingThoughts || loadingQueryTask) {
         return <div>Loading...</div>;
@@ -577,7 +569,5 @@ export default function Analytics() {
             </SimpleGrid>
 
         </Box>
-    )
-
-
+    );
 }

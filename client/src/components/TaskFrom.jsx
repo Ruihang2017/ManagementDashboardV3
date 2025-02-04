@@ -40,9 +40,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_TASK, CREATE_TASK, DELETE_TASK } from '@utils/mutations';
 import { TiUserAddOutline } from "react-icons/ti";
-
 import { TodoTable } from "./table/ToDoTable"
 import TaskMenu from "@components/menu/TaskMenu";
+import PropTypes from 'prop-types';
 
 export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNewTask, taskData, setTaskData }) => {
 
@@ -97,10 +97,6 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
         const newAvailableTaskEmployees = availableTaskEmployees.filter(taskEmployee => taskEmployee.employeeID !== data.employeeID);
         setAvailableTaskEmployees(newAvailableTaskEmployees)
 
-        // const EmployeeIDs = task.EmployeeIDs.push(data.employeeID);
-
-        // console.log(EmployeeIDs);
-
         setTask({
             ...task,
             EmployeeIDs: [...task.EmployeeIDs, data.employeeID],
@@ -120,7 +116,6 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
 
     // updateToDo
     const updateTask = async (_data) => {
-        // console.log(_data);
 
         const todos = _data.todos.map(todo => {
             return {
@@ -142,13 +137,11 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
                 todos: todos,
             }
         }
-        // console.log(variables);
 
         try {
             const { data } = await UpdateTask({
                 variables: variables
             });
-            // console.log(data);
 
             setTask(data.updateTask);
             const newTaskData = taskData.map(task => {
@@ -157,7 +150,7 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
                 }
                 return task;
             });
-            // const newTaskData = [...filteredTaskData, data.updateTask];
+
             setTaskData(newTaskData);
         } catch (err) {
             console.error(err);
@@ -168,13 +161,11 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
         const variables = {
             taskId: selectedTask.taskID,
         }
-        // console.log(variables);
 
         try {
             const { data } = await DeleteTask({
                 variables: variables
             });
-            // console.log(data);
             if (data.deleteTask) {
                 setTaskData(taskData.filter(task => {
                     return task.taskID !== selectedTask.taskID
@@ -376,3 +367,38 @@ export const TaskFrom = ({ selectedTask, employeesProfileInfo, disclosure, isNew
         </Container >
     )
 }
+
+TaskFrom.propTypes = {
+    selectedTask: PropTypes.shape({
+      taskID: PropTypes.string.isRequired,
+      taskName: PropTypes.string.isRequired,
+      taskDescription: PropTypes.string.isRequired,
+      EmployeeIDs: PropTypes.arrayOf(PropTypes.string).isRequired,
+      completed: PropTypes.bool.isRequired,
+      todos: PropTypes.arrayOf(
+        PropTypes.shape({
+          EmployeeIDs: PropTypes.arrayOf(PropTypes.string).isRequired,
+          completed: PropTypes.bool.isRequired,
+          description: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          todoID: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+    }).isRequired,
+    employeesProfileInfo: PropTypes.arrayOf(
+      PropTypes.shape({
+        employeeID: PropTypes.string.isRequired,
+        avatarURI: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    disclosure: PropTypes.shape({
+      onClose: PropTypes.func.isRequired,
+    }).isRequired,
+    isNewTask: PropTypes.bool.isRequired,
+    taskData: PropTypes.arrayOf(
+      PropTypes.shape({
+        taskID: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    setTaskData: PropTypes.func.isRequired,
+  };

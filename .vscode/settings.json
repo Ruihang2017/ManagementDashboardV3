@@ -1,0 +1,22 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // Change ESLint to Prettier
+
+  // Ensure 2-space indentation
+  "editor.tabSize": 4,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "prettier.tabWidth": 4,
+  "prettier.useTabs": false
+}
+  
