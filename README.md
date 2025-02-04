@@ -4,9 +4,10 @@
 ![GitHub issues](https://img.shields.io/github/issues/Ruihang2017/ManagementDashboardV3)
 ![GitHub stars](https://img.shields.io/github/stars/Ruihang2017/ManagementDashboardV3)
 ![GitHub forks](https://img.shields.io/github/forks/Ruihang2017/ManagementDashboardV3)
+![GitHub last commit](https://img.shields.io/github/last-commit/Ruihang2017/ManagementDashboardV3)
+![GitHub contributors](https://img.shields.io/github/contributors/Ruihang2017/ManagementDashboardV3)
 
-**Available at**
-https://management-dashboard-3-10095453001b.herokuapp.com/
+**Available at**: [Management Dashboard](https://management-dashboard-3-10095453001b.herokuapp.com/)
 
 ## Table of Contents
 
@@ -22,7 +23,7 @@ https://management-dashboard-3-10095453001b.herokuapp.com/
 
 ## Project Description
 
-The Management Dashboard is a collaborative MERN-stack single-page application designed to address real-world problems by providing a user-focused platform for task management and forum discussions. It integrates a scalable MongoDB back end, a GraphQL API, and an Express.js and Node.js server with a React front end. User authentication is implemented using JSON Web Tokens (JWT). The application allows users to create, read, update, and delete tasks, todos within tasks, thoughts in the main forum, and comments within thoughts. Users can also sign in/out and change their avatars and account information. Additionally, the platform provides a statistical analysis board that displays user and team statistics related to tasks, todos, and activities.
+The **Management Dashboard** is a collaborative MERN-stack single-page application designed to address real-world problems by providing a user-focused platform for task management and forum discussions. It integrates a scalable MongoDB back end, a GraphQL API, and an Express.js and Node.js server with a React front end. User authentication is implemented using JSON Web Tokens (JWT). The application allows users to create, read, update, and delete tasks, todos within tasks, thoughts in the main forum, and comments within thoughts. Users can also sign in/out and change their avatars and account information. Additionally, the platform provides a statistical analysis board that displays user and team statistics related to tasks, todos, and activities.
 
 The Management Dashboard leverages the MERN stack (MongoDB, Express.js, React, Node.js) to provide a robust and scalable solution for task management and forum discussions. The back end is powered by MongoDB, a NoSQL database that ensures scalability and flexibility. The GraphQL API facilitates efficient data querying and manipulation, while Express.js and Node.js handle server-side operations. The application follows a single-page application (SPA) architecture, ensuring a seamless user experience. The front end, built with React, offers a responsive and interactive UI, styled with Chakra UI. The back end, powered by Node.js and Express.js, provides a robust server environment. MongoDB, coupled with Mongoose ODM, ensures efficient data management. User authentication is secured with JSON Web Tokens (JWT), and the application is deployed on Heroku for easy accessibility.
 
@@ -35,18 +36,18 @@ The Management Dashboard leverages the MERN stack (MongoDB, Express.js, React, N
 
 ## Features
 
-- **User Authentication**: Users can sign in/out, and their account information is secured with JWT.
-- **Task Management**:
+- **🔒 User Authentication**: Users can sign in/out, and their account information is secured with JWT.
+- **📝 Task Management**:
   - Create, Read, Update, Delete (CRUD) tasks.
   - Create, Read, Update, Delete (CRUD) todos within tasks.
-- **Forum Discussions**:
+- **💬 Forum Discussions**:
   - Create, Read, Update, Delete (CRUD) thoughts in the main forum.
   - Create, Read, Update, Delete (CRUD) comments within thoughts.
-- **User Profile**:
+- **👤 User Profile**:
   - Change avatars and account information.
-- **Statistical Analysis Board**:
+- **📊 Statistical Analysis Board**:
   - Display user and team statistics related to tasks, todos, and activities.
-- **Responsive and Interactive UI**: The application has a polished, responsive, and interactive user interface.
+- **💻 Responsive and Interactive UI**: The application has a polished, responsive, and interactive user interface.
 
 ## Technologies
 
@@ -75,6 +76,7 @@ git clone https://github.com/Ruihang2017/ManagementDashboardV3.git
 cd ManagementDashboardV3
 npm install
 ```
+
 
 ## Usage
 
